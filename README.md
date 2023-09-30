@@ -14,7 +14,7 @@ I installed already the react MUI component library:
 
 # backend
 using docker:
-  docker-compose build
+  docker-compose up --build
 
 without docker:
   python manage.py runserver 
