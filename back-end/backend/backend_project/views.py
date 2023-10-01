@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 
 # Create your views here.s
 def homepage(request):
-    return HttpResponse('Hello Worlddddd')
+    return HttpResponse('Hello World!')
 
 
 # Create your views here.
