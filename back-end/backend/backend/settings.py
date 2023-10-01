@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-alf_s)m3d0ye96b9a_#t6k-uf45_kl-+43n!a=qn!#b9!dvdf7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['shift-backend-prod.fly.dev']
 
 
 # Application definition
