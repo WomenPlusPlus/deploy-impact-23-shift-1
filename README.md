@@ -1,5 +1,7 @@
 # frontend
 
+- create first user from supabase.com/dashboard in the authentication/users menu
+
 using docker:
  - TBD: getting the env variables to the docker image
  - docker build -t front-end . 
@@ -7,6 +9,8 @@ using docker:
 
 without docker:
  - provide supabase & app urls and supabase keys to .env file (copy example.env)
+    - keys and url are on supabase.com/dashboard in the settings/API menu
+    - app url for dev surpricingly: http://localhost:3000
  - npm install
  - npm start
 
