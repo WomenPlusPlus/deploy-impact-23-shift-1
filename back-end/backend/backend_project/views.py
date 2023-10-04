@@ -16,3 +16,15 @@ def yo(request):
 def getData(request):
     person = {'name':'Dennis', 'age':28}
     return Response(person)
+
+@api_view(['POST'])
+def login(request):
+    return Response({})
+
+@api_view(['POST'])
+def signup(request):
+    return Response({})
+
+@api_view(['POST'])
+def test_token(request):
+    return Response({})
