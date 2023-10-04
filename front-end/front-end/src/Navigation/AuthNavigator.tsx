@@ -1,48 +1,34 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux/es/exports';
 import { Routes, Route, useLocation } from "react-router-dom";
-import { Session } from '@supabase/supabase-js'
+import { RootState } from '../Services/Store';
 
 import { Invite } from "../Pages/Invite";
 import { Login } from "../Pages/Login";
 import { Welcome } from "../Pages/Welcome";
 
-import { AuthenticationStatus, auth } from "../Services/Authentication";
+import { authentication } from "../Services/Authentication";
+import { AuthenticationStatus } from '../Services/AuthenticationSlice';
 
 function AuthNavigator() {
   const location = useLocation();
 
-  // TODO.. get rid of this whole code when state management is introduced
-  const [session, setSession] = useState<Session | null>()
-
-  useEffect(() => {
-      auth.supabaseClient.auth.getSession().then(({ data: { session } }) => {
-          setSession(session)
-      })
-      
-      const {
-          data: { subscription },
-      } = auth.supabaseClient.auth.onAuthStateChange((_event, session) => {
-          auth.loginUser();
-          setSession(session);
-      })
-    
-    return () => subscription.unsubscribe()
-  }, []) 
-  // -------------------
+  const authenticationStatus = useSelector((state: RootState) => state.auth.status);
 
   useEffect(() => {
     const accessToken = location?.hash?.split("&")[0]?.split("=")[1]
     const refreshToken = location?.hash?.split("&")[3]?.split("=")[1]
     if (accessToken && refreshToken) {
-      auth.welcomeUser(accessToken, refreshToken);
+      authentication.welcomeUser(accessToken, refreshToken);
+      if(window.location.hash) {
+        window.history.replaceState("", document.title, window.location.pathname);
+      }
     } else {
       // TODO: errorhandling
     }
   });
- 
 
-  //if (auth.getAuthenticationStatus() === AuthenticationStatus.Authenticated) {
-  if(session) {
+  if (authenticationStatus === AuthenticationStatus.Authenticated) {
     // TODO: different routes for different types of users.. Invite page only accessible to admin/association
     // Welcome to candidate/customer  etc ?
     return (
@@ -52,7 +38,7 @@ function AuthNavigator() {
       </Routes>
     );
   } else if (
-    auth.getAuthenticationStatus() === AuthenticationStatus.AccessTokenInvalid
+    authenticationStatus === AuthenticationStatus.AccessTokenInvalid
   ) {
     return <div>Access token invalid ... TODO</div>;
   } else return <Login />;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import { auth } from '../Services/Authentication';
+import { authentication } from '../Services/Authentication';
 
 export const Invite = () => {
     const [email, setEmail] = useState("");
@@ -22,13 +22,13 @@ export const Invite = () => {
                 />
 
                 <Button variant="contained" color="primary" 
-                    onClick={() => {auth.inviteUser(email)}}>
+                    onClick={() => {authentication.inviteUser(email)}}>
                     Send Invitation
                 </Button>
             </div>
             <div>
                 <Button variant="contained" color="primary" 
-                    onClick={() => {auth.logOut()}}>
+                    onClick={() => {authentication.logOut()}}>
                     Logout
                 </Button>
             </div>

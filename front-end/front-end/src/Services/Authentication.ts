@@ -1,31 +1,22 @@
 import { SupabaseClient, createClient } from '@supabase/supabase-js'
 
-export enum AuthenticationStatus {
-    NotAuthenticated = "init",
-    Authenticated = "success",
-    AccessTokenInvalid = "accesstokenfail",
-    LoginInvalid = "loginfail",
-    LoggedOut = "loggedout",
-}
+import { store } from "./Store";
+import { login, inviteeLogin, inviteeLoginFail, logout } from './AuthenticationSlice';
 
 class Authentication {
     appUrl:string = process.env.REACT_APP_APP_URL ? process.env.REACT_APP_APP_URL : "";
     supabaseUrl:string = process.env.REACT_APP_SUPABASE_URL ? process.env.REACT_APP_SUPABASE_URL : "";
     supabaseKey:string = process.env.REACT_APP_SUPABASE_KEY ? process.env.REACT_APP_SUPABASE_KEY : "";
     supabaseServiceKey:string = process.env.REACT_APP_SUPABASE_SERVICE_KEY ? process.env.REACT_APP_SUPABASE_SERVICE_KEY : "";
-    supabaseClient:SupabaseClient
-    adminSupabaseClient:SupabaseClient | null
-    authenticationStatus:AuthenticationStatus
+    supabaseClient:SupabaseClient;
+    adminSupabaseClient:SupabaseClient | null;
 
     constructor() {
-        //  TODO: do we need this for anything??? 
         this.supabaseClient = createClient(this.supabaseUrl, this.supabaseKey);
 
         // TODO: add a check for only admin / association users to have access to this
         // do not even create this unless is admin / association
         this.adminSupabaseClient = createClient(this.supabaseUrl, this.supabaseServiceKey);
-
-        this.authenticationStatus = AuthenticationStatus.NotAuthenticated;
     }
 
     async inviteUser(email:string) {
@@ -38,6 +29,7 @@ class Authentication {
         }
         */
 
+        // TODO: handling of sending invitation twice to same person
         if(this.adminSupabaseClient) {
             const { data: user, error } = await this.adminSupabaseClient.auth.admin
                         .inviteUserByEmail(email, 
@@ -67,9 +59,9 @@ class Authentication {
             });
             if(error) {
                 //TODO:error handling
-                this.authenticationStatus = AuthenticationStatus.AccessTokenInvalid;   
+                store.dispatch(inviteeLoginFail());  
             } else {   
-                this.authenticationStatus = AuthenticationStatus.Authenticated;  
+                store.dispatch(inviteeLogin());  
                 // send data to backend that user has signed up.. email, userid            
             }
         }
@@ -78,12 +70,12 @@ class Authentication {
     async loginUser() {
         const user = await this.getUser();
         if(user) {
-            this.authenticationStatus = AuthenticationStatus.Authenticated;
+            store.dispatch(login());  
         }
     }
 
     getAuthenticationStatus() {
-        return this.authenticationStatus;
+        return store.getState().auth.status;
     }
 
     async getUser() {
@@ -107,8 +99,8 @@ class Authentication {
         if(error) {
             // TODO: what should we do???
         }
-        this.authenticationStatus = AuthenticationStatus.LoggedOut
+        store.dispatch(logout());
     }
 }
 
-export const auth = new Authentication();
+export const authentication = new Authentication();

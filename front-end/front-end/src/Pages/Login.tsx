@@ -4,21 +4,21 @@ import { Session } from '@supabase/supabase-js'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { Navigate } from 'react-router-dom'
 
-import { auth } from '../Services/Authentication'
+import { authentication } from '../Services/Authentication'
 
 export const Login = () => {
     const [session, setSession] = useState<Session | null>()
 
     // TODO: duplicate code.. how to handle this best:
     useEffect(() => {
-        auth.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+        authentication.supabaseClient.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
         })
         
         const {
             data: { subscription },
-        } = auth.supabaseClient.auth.onAuthStateChange((_event, session) => {
-            auth.loginUser();
+        } = authentication.supabaseClient.auth.onAuthStateChange((_event, session) => {
+            authentication.loginUser();
             setSession(session);
         })
       
@@ -26,7 +26,7 @@ export const Login = () => {
     }, [])
   
     if (!session) {
-        return (<Auth supabaseClient={auth.supabaseClient} appearance={{ theme: ThemeSupa }} 
+        return (<Auth supabaseClient={authentication.supabaseClient} appearance={{ theme: ThemeSupa }} 
             providers={[]}
             localization={{
             variables: {
