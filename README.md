@@ -1,6 +1,10 @@
 # frontend
 
 - create first user from supabase.com/dashboard in the authentication/users menu
+- send the signup request to backend with this data (for now you can use the test.rest - test case Mauro provided):
+{ "username": "email address of the user you created in supabase", "password": "User UID that you find in the supabase dashboard where you created the first user", "email": "email address of the user you created in supabase", "is_staff": "true" }
+- we need a better process for creating the first admin user!!!
+
 
 using docker:
  - TBD: getting the env variables to the docker image
@@ -10,7 +14,8 @@ using docker:
 without docker:
  - provide supabase & app urls and supabase keys to .env file (copy example.env)
     - keys and url are on supabase.com/dashboard in the settings/API menu
-    - app url for dev surpricingly: http://localhost:3000
+    - app url aka front end url, for dev surprisingly: http://localhost:3000
+    - api url for the backend, for dev again surprisingly: http://localhost:8000
  - npm install
  - npm start
 
