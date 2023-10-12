@@ -15,15 +15,13 @@ from rest_framework.permissions import IsAuthenticated
 def homepage(request):
     return HttpResponse('Hello hello developer!!!')
 
-
-# Create your views here.
-def yo(request):
-    return HttpResponse("yooyoyyoy")
-
 @api_view(['GET'])
-def getData(request):
-    person = {'name':'Dennis', 'age':28}
-    return Response(person)
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def getCandidates(request):
+    candidates = User.objects.all()  # Retrieve all Candidate records
+    serializer = UserSerializer(candidates, many=True)  # Serialize the data
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def login(request):
