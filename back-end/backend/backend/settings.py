@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-alf_s)m3d0ye96b9a_#t6k-uf45_kl-+43n!a=qn!#b9!dvdf7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['shift-backend-prod.fly.dev', 'shift-backend-staging.fly.dev']
+ALLOWED_HOSTS = ['shift-backend-prod.fly.dev', 'shift-backend-staging.fly.dev', '127.0.0.1']
 
 
 # Application definition
@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'backend_project',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
