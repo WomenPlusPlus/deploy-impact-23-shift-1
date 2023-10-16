@@ -18,7 +18,7 @@ export const Login = () => {
         const {
             data: { subscription },
         } = authentication.supabaseClient.auth.onAuthStateChange((_event, session) => {
-            authentication.loginUser();
+            if(session) authentication.loginUser();
             setSession(session);
         })
       
