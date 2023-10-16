@@ -11,6 +11,7 @@ import { SignUp } from "../Pages/SignUp";
 
 import { authentication } from "../Services/Authentication";
 import { AuthenticationStatus } from '../Services/AuthenticationSlice';
+import { CandidateProfile } from '../Pages/CandidateProfile';
 
 function AuthNavigator() {
   const location = useLocation();
@@ -57,6 +58,7 @@ function AuthNavigator() {
       <Routes>
         <Route path="/*" element={<Welcome />} />
         <Route path="welcome/*" element={<Welcome />} />
+        <Route path="profile/*" element={<CandidateProfile />} />
       </Routes>
     );
   } else if (

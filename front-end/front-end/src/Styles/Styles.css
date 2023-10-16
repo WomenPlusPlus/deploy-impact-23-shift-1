@@ -1,0 +1,34 @@
+.pageFrameLayout {
+    display: flex;
+    width: 1120px;                  /* TODO: static widths ?? */
+    padding: var(--none, 0px);
+    
+    align-items: flex-start;
+    gap: var(--3, 24px);
+    
+    flex-shrink: 0;
+}
+
+.pageFrameStyle {
+    border-radius: var(--none, 0px);
+    background: #FBFCFD;
+}
+
+.componentFrameLayout {
+    display: flex;
+    width: 390px;                    /* TODO: static widths ?? */
+    padding: var(--3, 24px);
+    
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--3, 24px);
+    
+    flex-shrink: 0;   
+
+}
+
+.componentFrameStyle {
+    border-radius: var(--1, 8px);
+    border: 1px solid rgba(0, 0, 0, 0.15);   
+    background: #FFF;
+}
