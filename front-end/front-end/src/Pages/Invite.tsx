@@ -8,9 +8,8 @@ export const Invite = () => {
     const [email, setEmail] = useState("");
 
     return (
-        <>
-            <div>
-                <TextField
+        <div>
+            <TextField
                 required
                 id="email"
                 name="email"
@@ -21,17 +20,10 @@ export const Invite = () => {
                 onChange={(event) => setEmail(event?.target.value)}
                 />
 
-                <Button variant="contained" color="primary" 
-                    onClick={() => {authentication.inviteUser(email)}}>
-                    Send Invitation
-                </Button>
-            </div>
-            <div>
-                <Button variant="contained" color="primary" 
-                    onClick={() => {authentication.logOut()}}>
-                    Logout
-                </Button>
-            </div>
-        </>
+            <Button variant="contained" color="primary" 
+                onClick={() => {authentication.inviteUser(email)}}>
+                Send Invitation
+            </Button>
+        </div>
     )
 }

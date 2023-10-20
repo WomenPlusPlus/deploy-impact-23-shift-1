@@ -4,21 +4,23 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { RootState } from '../Services/Store';
 import Link from '@mui/material/Button';
 
-import { Invite } from "../Pages/Invite";
 import { Login } from "../Pages/Login";
-import { Welcome } from "../Pages/Welcome";
 import { SignUp } from "../Pages/SignUp";
 
 import { authentication } from "../Services/Authentication";
 import { AuthenticationStatus } from '../Services/AuthenticationSlice';
-import { CandidateProfile } from '../Pages/CandidateProfile';
+import { SideBar } from './SideBar';
+import { navigation, MMMenuItem } from "../Navigation/Menu";
+
+import "./SideBar.css"
 
 function AuthNavigator() {
   const location = useLocation();
 //authentication.logOut();
 
   const authenticationStatus:AuthenticationStatus = useSelector((state: RootState) => state.auth.status);
-  
+  console.log("auth status:", authenticationStatus);
+
   const pathName:string | null = location?.pathname?.split("/")[1]
   useEffect(() => {
     const accessToken:string | null = location?.hash?.split("&")[0]?.split("=")[1]
@@ -45,21 +47,19 @@ function AuthNavigator() {
         <Route path="signup/*" element={<SignUp />} />
       </Routes>
     );
-  } else if (authenticationStatus === AuthenticationStatus.AdminAuthenticated) {
-    return (
-      <Routes>
-        <Route path="/*" element={<Invite />} />
-        <Route path="invite/*" element={<Invite />} />
-      </Routes>
-    );
-  } else if (authenticationStatus === AuthenticationStatus.CandidateAuthenticated) {
+  } else if (authenticationStatus === AuthenticationStatus.CandidateAuthenticated ||
+    authenticationStatus === AuthenticationStatus.AdminAuthenticated) {
     // TODO: improve the user type detection.. should there be different way to distinguish between roles
     return (
-      <Routes>
-        <Route path="/*" element={<Welcome />} />
-        <Route path="welcome/*" element={<Welcome />} />
-        <Route path="profile/*" element={<CandidateProfile />} />
-      </Routes>
+      <div className="appLayout appStyle">
+        <SideBar></SideBar>
+        <Routes>
+          <Route path="/*" element={navigation.getMyMainPage()} />
+          { navigation.getMyRoutes().map((route:MMMenuItem) =>  (
+            <Route path={route.path+"/*"} element={route.page} />
+          ))}
+        </Routes>
+      </div>
     );
   } else if (
     authenticationStatus === AuthenticationStatus.AccessTokenInvalid

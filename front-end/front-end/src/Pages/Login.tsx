@@ -41,8 +41,7 @@ export const Login = () => {
         }}
         />)
     } else {
-        /* TODO: what page this should redirect.. now this is only choice: */
-        return <Navigate to="/invite" />
+        return <Navigate to="/" />
     }
         
 }
