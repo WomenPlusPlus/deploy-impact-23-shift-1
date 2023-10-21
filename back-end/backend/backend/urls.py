@@ -19,7 +19,7 @@ from django.urls import re_path, path, include
 from backend_project import views
 
 urlpatterns = [
-    path("'admin/'", admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", views.homepage),
     re_path("login/", views.login),
     re_path("signup/", views.signup),
