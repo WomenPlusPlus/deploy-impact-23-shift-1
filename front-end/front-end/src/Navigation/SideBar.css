@@ -13,39 +13,38 @@
 
 .menuLayout {
     align-items: flex-start;
+    border: none;
 }
 
 .appLayout {
     display: inline-flex;
     padding-right: var(--none, 0px);
     align-items: center-top;
-/*  TODO: return to this when more content in the pages??? 
+    /*  TODO: return to this when more content in the pages??? 
     align-items: center; 
 */
-    gap: var(--none, 32px);
+    gap: var(--none, 0px);
 }
 
 .appStyle {
     border-radius: var(--none, 0px);
-    background: #FBFCFD;
+    background: #fbfcfd;
 }
 
 .logoFrameLayout {
-    width: 256px;
-    padding: var(--4, 32px) var(--2, 16px);
+    width: 100%;
     align-self: flex-end;
     gap: var(--none, 0px);
 }
 
 .logoFrameStyle {
     border-radius: var(--none, 0px);
-    border: 1px solid #E5E5E5;
-    background: #FFF;   
+    border: 1px solid #e5e5e5;
+    background: #fff;
 }
 
 .logoLayout {
-    width: 224px;
-    height: 22px;
+    width: 100%;
 }
 
 .logoStyle {
@@ -99,7 +98,7 @@
 }
 
 .logoutMenuItemStyle {
-    color: var(--red, #FF4545);
+    color: var(--red, #ff4545);
     font-family: Outfit;
     font-size: 14px;
     font-style: normal;
@@ -108,5 +107,5 @@
 }
 
 .logoutIconStyle {
-    color: var(--red, #FF4545);
+    color: var(--red, #ff4545);
 }

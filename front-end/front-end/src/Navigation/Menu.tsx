@@ -12,107 +12,117 @@ import { store } from '../Services/Store';
 import { AuthenticationStatus } from '../Services/AuthenticationSlice';
 
 export interface MMMenu {
-    printMyself():JSX.Element
+    printMyself(): JSX.Element;
 }
 
 export interface MMSubMenu {
-    name: string,
-    subItems: MMMenuItem[],
+    name: string;
+    subItems: MMMenuItem[];
 }
 
 export interface MMMenuItem {
-    name: string,
-    path: string,
-    icon: JSX.Element,
-    page: JSX.Element,
+    name: string;
+    path: string;
+    icon: JSX.Element;
+    page: JSX.Element;
 }
 
-const NAVIGATION_ADMIN:MMMenuItem[] = [
+const NAVIGATION_ADMIN: MMMenuItem[] = [
     {
-        name: "Invite",
-        path: "invite",
+        name: 'Invite',
+        path: 'invite',
         icon: <AddToHomeScreenIcon />,
         page: <Invite />,
     },
     {
-        name: "Log out",
-        path: "logout",
-        icon: <LogoutIcon className="logoutIconStyle"/>,
+        name: 'Log out',
+        path: 'logout',
+        icon: <LogoutIcon className="logoutIconStyle" />,
         page: <Logout />,
-    },    
-]
+    },
+];
 
-const NAVIGATION_CANDIDATE:(MMMenuItem|MMSubMenu)[] = [
+const NAVIGATION_CANDIDATE: (MMMenuItem | MMSubMenu)[] = [
     {
-        name: "Welcome Back",
+        name: 'Welcome Back',
         subItems: [
             {
-                name: "Profile",
-                path: "profile",
+                name: 'Profile',
+                path: 'profile',
                 icon: <AccountCircleOutlinedIcon />,
                 page: <CandidateProfile />,
             },
             {
-                name: "Log out",
-                path: "logout",
-                icon: <LogoutIcon className="logoutIconStyle"/>,
+                name: 'Log out',
+                path: 'logout',
+                icon: <LogoutIcon className="logoutIconStyle" />,
                 page: <Logout />,
             },
         ],
     },
     {
-        name: "Welcome",
-        path: "welcome",
+        name: 'Welcome',
+        path: 'welcome',
         icon: <SchoolOutlinedIcon />,
         page: <Welcome />,
     },
-]
+];
 
-const NAVIGATION_LOGOUT:MMMenuItem[] = [
+const NAVIGATION_LOGOUT: MMMenuItem[] = [
     {
-        name: "Log out",
-        path: "logout",
-        icon: <LogoutIcon className="logoutIconStyle"/>,
+        name: 'Log out',
+        path: 'logout',
+        icon: <LogoutIcon className="logoutIconStyle" />,
         page: <Logout />,
     },
-]
+];
 
 export class Navigation {
     getMyMenu() {
-        const authenticationStatus:AuthenticationStatus = store.getState().auth.status;
-        if(authenticationStatus === AuthenticationStatus.CandidateAuthenticated) {
+        const authenticationStatus: AuthenticationStatus =
+            store.getState().auth.status;
+        if (
+            authenticationStatus === AuthenticationStatus.CandidateAuthenticated
+        ) {
             return NAVIGATION_CANDIDATE;
-        } else if(authenticationStatus === AuthenticationStatus.AdminAuthenticated) {
+        } else if (
+            authenticationStatus === AuthenticationStatus.AdminAuthenticated
+        ) {
             return NAVIGATION_ADMIN;
         }
         return NAVIGATION_LOGOUT;
     }
 
     getMyRoutes() {
-       const routes:MMMenuItem[] = [];
-       const menu = this.getMyMenu();
+        const routes: MMMenuItem[] = [];
+        const menu = this.getMyMenu();
 
-       // flattens the menu for routing.. we don't need to know the structure
-       menu.forEach((item:MMMenuItem|MMSubMenu) => {
-          if('subItems' in item) {
-            item.subItems.forEach((subItem:MMMenuItem) => {
-                routes.push(subItem);
-            })
-          } else {
-            routes.push(item);
-          }
-       });
-       return routes;
+        // flattens the menu for routing.. we don't need to know the structure
+        menu.forEach((item: MMMenuItem | MMSubMenu) => {
+            if ('subItems' in item) {
+                item.subItems.forEach((subItem: MMMenuItem) => {
+                    routes.push(subItem);
+                });
+            } else {
+                routes.push(item);
+            }
+        });
+        return routes;
     }
 
     getMyMainPage() {
-        const authenticationStatus:AuthenticationStatus = store.getState().auth.status;
-        if(authenticationStatus === AuthenticationStatus.CandidateAuthenticated) {
+        const authenticationStatus: AuthenticationStatus =
+            store.getState().auth.status;
+        if (
+            authenticationStatus === AuthenticationStatus.CandidateAuthenticated
+        ) {
             return <Welcome />;
-        } else if(authenticationStatus === AuthenticationStatus.AdminAuthenticated) {
+        } else if (
+            authenticationStatus === AuthenticationStatus.AdminAuthenticated
+        ) {
             return <Invite />;
         }
-        return "/";
+        return '/';
     }
 }
 
