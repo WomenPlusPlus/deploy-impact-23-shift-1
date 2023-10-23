@@ -54,6 +54,3 @@ class User(models.Model):
         managed = False
         db_table = 'user'
 
-
-
-#####
