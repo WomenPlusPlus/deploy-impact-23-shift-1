@@ -21,9 +21,10 @@ from backend_project import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.homepage),
-    # re_path("login/", views.login),
-    # re_path("signup/", views.signup),
+    re_path("login/", views.login),
+    re_path("signup/", views.signup),
     # re_path("test_token/", views.test_token),
     re_path("get_candidates/", views.get_candidates),
-    re_path("get_jobs/", views.get_jobs)
+    re_path("get_jobs/", views.get_jobs),
+    re_path("post_job", views.create_job)
 ]

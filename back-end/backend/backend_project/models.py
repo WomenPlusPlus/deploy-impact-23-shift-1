@@ -36,3 +36,20 @@ class Job(models.Model):
     class Meta:
         managed = False
         db_table = 'job'
+
+
+class User(models.Model):
+    userid = models.BigAutoField(db_column='userID', primary_key=True)  # Field name made lowercase.
+    username = models.TextField()
+    password = models.TextField()
+    email = models.TextField(blank=True, null=True)
+    firstname = models.TextField(db_column='firstName', blank=True, null=True)  # Field name made lowercase.
+    lastname = models.TextField(db_column='lastName', blank=True, null=True)  # Field name made lowercase.
+    contactnumber = models.TextField(db_column='contactNumber', blank=True, null=True)  # Field name made lowercase.
+    profilepicture = models.TextField(db_column='profilePicture', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+    registrationdate = models.DateField(db_column='registrationDate', blank=True, null=True)  # Field name made lowercase.
+    usertype = models.TextField(db_column='userType', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'user'
