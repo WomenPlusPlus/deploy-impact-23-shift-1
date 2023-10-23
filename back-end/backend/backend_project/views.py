@@ -26,6 +26,8 @@ def get_jobs(request):
     serializer = JobSerializer(jobs, many=True)
     return Response(serializer.data)
 
+
+
 def homepage(request):
     return HttpResponse('Hello hello developer!!!')
 
