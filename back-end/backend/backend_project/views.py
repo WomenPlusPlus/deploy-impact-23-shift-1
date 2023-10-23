@@ -6,8 +6,8 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from backend.serializers import UserSerializer
-from .serializers import CandidateSerializer
-from .models import Candidate
+from .serializers import CandidateSerializer, JobSerializer
+from .models import Candidate, Job
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
@@ -20,7 +20,12 @@ def get_candidates(request):
     serializer = CandidateSerializer(candidates, many=True)
     return Response(serializer.data)
 
-# Create your views here.s
+@api_view(['GET'])
+def get_jobs(request):
+    jobs = Job.objects.all()
+    serializer = JobSerializer(jobs, many=True)
+    return Response(serializer.data)
+
 def homepage(request):
     return HttpResponse('Hello hello developer!!!')
 

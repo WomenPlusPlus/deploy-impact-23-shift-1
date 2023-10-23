@@ -1,5 +1,6 @@
 from django.db import models
 
+### ->python manage.py inspectdb<- find the model for each table in db !!
 
 class Candidate(models.Model):
     candidateid = models.BigAutoField(db_column='candidateID', primary_key=True)  # Field name made lowercase.
@@ -18,3 +19,20 @@ class Candidate(models.Model):
     class Meta:
         managed = False
         db_table = 'candidate'
+
+
+class Job(models.Model):
+    jobid = models.BigAutoField(db_column='jobID', primary_key=True)  # Field name made lowercase.
+    companyid = models.BigIntegerField(db_column='companyID')  # Field name made lowercase.
+    associationid = models.BigIntegerField(db_column='associationID')  # Field name made lowercase.
+    title = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    jobtype = models.TextField(db_column='jobType', blank=True, null=True)  # Field name made lowercase.
+    category = models.TextField(blank=True, null=True)
+    location = models.TextField(blank=True, null=True)
+    salaryrange = models.TextField(db_column='salaryRange', blank=True, null=True)  # Field name made lowercase.
+    appplicationdeadline = models.DateField(db_column='appplicationDeadline', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'job'
