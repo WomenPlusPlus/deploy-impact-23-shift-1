@@ -26,5 +26,6 @@ urlpatterns = [
     # re_path("test_token/", views.test_token),
     re_path("get_candidates/", views.get_candidates),
     re_path("get_jobs/", views.get_jobs),
-    re_path("post_job", views.create_job)
+    re_path("post_job", views.create_job),
+    re_path("match_making", views.match_making),
 ]

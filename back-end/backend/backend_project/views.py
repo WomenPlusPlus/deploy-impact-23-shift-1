@@ -69,6 +69,21 @@ def signup(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def match_making(request):
+
+    #get candidates data
+    candidates = Candidate.objects.all()
+    serializer_candidate = CandidateSerializer(candidates, many=True)
+
+    #get jobs data
+    jobs = Job.objects.all()
+    serializer_job = JobSerializer(jobs, many=True)
+
+    print(serializer_candidate.data)
+    print(serializer_job.data)
+
+    return Response(1)
 
 @api_view(['POST'])
 def login(request):
