@@ -14,6 +14,7 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password  # Import Django's password hashing function
 from django.contrib.auth import authenticate
+from .utils import *
 
 
 @api_view(['GET'])
@@ -38,16 +39,14 @@ def create_job(request):
 
 @api_view(['POST'])
 def signup(request):
-    print(request.data['usertype'])
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
         user = User(**serializer.validated_data)
-        user.password = make_password(request.data['password'])  # Hash the password
+        #user.password = make_password(request.data['password'])  # Hash the password
         user.save()
 
-        # Check if the 'usertype' is 'candidate'
         if request.data.get('usertype', '') == 'candidate':
-            # Assuming the remaining fields match the Candidate model, extract and store them
+
             candidate_data = {
                 "userid": user.userid,  # Get the ID of the just stored user
                 "jobid": request.data.get('jobid', ''),
@@ -65,7 +64,6 @@ def signup(request):
             if candidate_serializer.is_valid():
                 candidate_serializer.save()
             else:
-                # Handle validation errors for the candidate-specific data
                 return Response(candidate_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -76,16 +74,11 @@ def signup(request):
 def login(request):
     username = request.data.get('username')
     password = request.data.get('password')
-    user = authenticate(request, username=username, password=password)
-    #print(user)
+    user = authenticate_user(request, username=username, password=password)
+
     if user is not None:
-        #token, created = Token.objects.get_or_create(user=user)
-        serializer = UserRegistrationSerializer(user)
-        return Response({'user': serializer.data})
-        #return Response({'token': token.key, 'user': serializer.data})
-    
+        return Response({'user': user})
     else:
-        # Authentication failed
         return Response("Invalid credentials", status=status.HTTP_401_UNAUTHORIZED)
 
 def homepage(request):

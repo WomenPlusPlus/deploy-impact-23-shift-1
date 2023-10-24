@@ -44,7 +44,7 @@ Content-Type: application/json
 POST http://127.0.0.1:8000/login/
 Content-Type: application/json
 
-{ "username": "mauri1618", "password": "ciaociao1234" }
+{ "username": "john_doe", "password": "secure_password" }
 
 ######
 
