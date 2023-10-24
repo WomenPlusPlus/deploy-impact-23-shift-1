@@ -8,8 +8,7 @@ export enum AuthenticationStatus {
     NotAuthenticated = "init",
     Pending = "pending",
     InviteeAuthenticated = "invitee",
-    AdminAuthenticated = "admin",
-    CandidateAuthenticated = "candidate",
+    Authenticated = "authenticated",
     AccessTokenInvalid = "accesstokenfail",
     LoginInvalid = "loginfail",
     LoggedOut = "loggedout",
@@ -22,15 +21,25 @@ export enum LoginType {
     Invited = "invitee",
 }
 
+export enum Role {
+  Non = "nondef",
+  Admin = "admin",
+  Association = "assosication",
+  Candidate = "candidate",
+  Company = "company",
+}
+
 export interface InitialState {
     status: AuthenticationStatus,
     loginType: LoginType,
+    role: Role,
     token: string,
 }
 
 const initialState: InitialState = {
     status: AuthenticationStatus.NotAuthenticated,
     loginType: LoginType.Non,
+    role: Role.Non,
     token: "",
 }
 
@@ -54,17 +63,22 @@ export const login = createAsyncThunk(
 
 export const signup = createAsyncThunk(
   "auth/signup",
-  async ({ email, secretid }:{email: string | undefined, secretid: string | null}) => {
+  async ({ email, secretid, role }:{email: string | undefined, secretid: string | null, role: string | null}) => {
     let result;
     if (email && secretid) {
-      result = await axios.post(`${apiUrl}/signup/`, {
-          username: email,
-          password: secretid,
-          email: email,
-      });
+      const userData = {
+        username: email,
+        password: secretid,
+        email: email,
+        usertype: role
+      }
+      result = await axios.post(`${apiUrl}/signup/`, userData);
     }
-    if (result?.status === 200) {
-      return result.data.token;
+    if (result?.status === 201) {
+      return {
+        role: role,
+        token: result.data.token,
+      };
     } else {
       console.log("error signingup", result?.status, result)
     }
@@ -77,6 +91,7 @@ export const authenticationSlice = createSlice({
     reducers: {
         logout(state) {
             state.status = AuthenticationStatus.LoggedOut;
+            state.role = Role.Non;
             state.loginType = LoginType.Non;
         },
         inviteeLogin(state) {
@@ -94,11 +109,8 @@ export const authenticationSlice = createSlice({
             state.status = AuthenticationStatus.Pending;
           })
           .addCase(login.fulfilled, (state, action) => {
-            if(action.payload.user.is_staff) {
-              state.status = AuthenticationStatus.AdminAuthenticated;
-            } else {
-              state.status = AuthenticationStatus.CandidateAuthenticated;
-            }
+            state.status = AuthenticationStatus.Authenticated;
+            state.role = action.payload.user.usertype;
             state.loginType = LoginType.NormalLogin;
 
             state.token = action.payload.token;            
@@ -109,9 +121,9 @@ export const authenticationSlice = createSlice({
             // TODO: error handling
           })
           .addCase(signup.fulfilled, (state, action) => {
-            state.status = AuthenticationStatus.CandidateAuthenticated;
-
-            state.token = action.payload;
+            state.status = AuthenticationStatus.Authenticated;
+            state.role = action.payload?.role ? action.payload?.role as Role : Role.Non;
+            state.token = action.payload?.token;  
           })
           .addCase(signup.rejected, (state, action) => {
             state.status = AuthenticationStatus.SignupFailed;

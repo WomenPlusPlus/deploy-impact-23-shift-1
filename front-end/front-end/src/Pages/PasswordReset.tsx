@@ -8,11 +8,14 @@ import { authentication } from '../Services/Authentication';
 import { AuthenticationStatus } from '../Services/AuthenticationSlice';
 import { RootState } from '../Services/Store';
 
-export const SignUp = () => {
+export const PasswordReset = () => {
     const [password, setPassword] = useState("");
+    
     const authenticationStatus:AuthenticationStatus = useSelector((state: RootState) => state.auth.status);
 
-    if(authenticationStatus === AuthenticationStatus.InviteeAuthenticated) {
+    if(authenticationStatus === AuthenticationStatus.Authenticated) {
+        return <Navigate to="/" />
+    } else {
         return ( 
             <>           
                 <div>
@@ -29,20 +32,11 @@ export const SignUp = () => {
                     />
 
                     <Button variant="contained" color="primary" 
-                        onClick={() => {authentication.signupInvitee(password)}}>
+                        onClick={() => {authentication.passwordReset(password)}}>
                         Set password
-                    </Button>
-                </div>
-                <div>
-                    <Button variant="contained" color="primary" 
-                        onClick={() => {authentication.logOut()}}>
-                        Logout
                     </Button>
                 </div>
             </>
         )
-    } else if(authenticationStatus === AuthenticationStatus.Authenticated) {
-        return <Navigate to="/welcome" />
     } 
-    return <div>Signup failed</div>
 }

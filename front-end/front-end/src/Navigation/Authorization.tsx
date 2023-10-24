@@ -7,9 +7,10 @@ import { CandidateProfile } from '../Pages/CandidateProfile';
 import { Welcome } from '../Pages/Welcome';
 import { Logout } from '../Pages/Logout';
 import { Invite } from '../Pages/Invite';
+import { Dashboard } from '../Pages/Dashboard';
 
 import { store } from '../Services/Store';
-import { AuthenticationStatus } from '../Services/AuthenticationSlice';
+import { Role } from '../Services/AuthenticationSlice';
 
 export interface MMMenu {
     printMyself(): JSX.Element;
@@ -33,6 +34,55 @@ const NAVIGATION_ADMIN: MMMenuItem[] = [
         path: 'invite',
         icon: <AddToHomeScreenIcon />,
         page: <Invite />,
+    },
+    {
+        name: "Welcome",
+        path: "welcome",
+        icon: <SchoolOutlinedIcon />,
+        page: <Welcome />,
+    },
+    {
+        name: "Log out",
+        path: "logout",
+        icon: <LogoutIcon className="logoutIconStyle"/>,
+        page: <Logout />,
+    },    
+]
+
+const NAVIGATION_ASSOSICATION:MMMenuItem[] = [
+    {
+        name: "Invite",
+        path: "invite",
+        icon: <AddToHomeScreenIcon />,
+        page: <Invite />,
+    },
+    {
+        name: "Dashboard",
+        path: "dashoard",
+        icon: <SchoolOutlinedIcon />,
+        page: <Dashboard />,
+    },
+    {
+        name: "Welcome",
+        path: "welcome",
+        icon: <SchoolOutlinedIcon />,
+        page: <Welcome />,
+    },
+    {
+        name: "Log out",
+        path: "logout",
+        icon: <LogoutIcon className="logoutIconStyle"/>,
+        page: <Logout />,
+    },
+];
+
+
+const NAVIGATION_COMPANY:MMMenuItem[] = [
+    {
+        name: "Welcome",
+        path: "welcome",
+        icon: <SchoolOutlinedIcon />,
+        page: <Welcome />,
     },
     {
         name: 'Log out',
@@ -77,18 +127,18 @@ const NAVIGATION_LOGOUT: MMMenuItem[] = [
     },
 ];
 
-export class Navigation {
+export class Authorization {
     getMyMenu() {
-        const authenticationStatus: AuthenticationStatus =
-            store.getState().auth.status;
-        if (
-            authenticationStatus === AuthenticationStatus.CandidateAuthenticated
-        ) {
-            return NAVIGATION_CANDIDATE;
-        } else if (
-            authenticationStatus === AuthenticationStatus.AdminAuthenticated
-        ) {
+        const userRole:Role = store.getState().auth.role;
+        
+        if(userRole === Role.Admin) {
             return NAVIGATION_ADMIN;
+        } else if(userRole === Role.Candidate) {
+            return NAVIGATION_CANDIDATE;
+        } else if(userRole === Role.Association) {
+            return NAVIGATION_ASSOSICATION;
+        } else if(userRole === Role.Company) {
+            return NAVIGATION_COMPANY;
         }
         return NAVIGATION_LOGOUT;
     }
@@ -111,19 +161,23 @@ export class Navigation {
     }
 
     getMyMainPage() {
-        const authenticationStatus: AuthenticationStatus =
-            store.getState().auth.status;
-        if (
-            authenticationStatus === AuthenticationStatus.CandidateAuthenticated
-        ) {
-            return <Welcome />;
-        } else if (
-            authenticationStatus === AuthenticationStatus.AdminAuthenticated
-        ) {
+        const userRole:Role = store.getState().auth.role;
+        
+        if(userRole === Role.Admin) {
             return <Invite />;
+        } else if(userRole === Role.Association) {
+            return <Invite />;
+        } else if(userRole === Role.Candidate) {
+            return <Welcome />;
+        } else if(userRole === Role.Company) {
+            return <Welcome />;
         }
-        return '/';
+        return <Logout />;
+    }
+
+    getInviteRoles() {
+        return Object.values(Role).filter((role) => role !== Role.Non);
     }
 }
 
-export const navigation = new Navigation();
+export const authorization = new Authorization();

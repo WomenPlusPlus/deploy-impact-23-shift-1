@@ -1,16 +1,14 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { styled } from '@mui/material/styles';
+import { Box, Drawer, IconButton} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
-import { navigation, MMMenuItem, MMSubMenu } from './Menu';
+import { authorization, MMMenuItem, MMSubMenu } from './Authorization';
 import './SideBar.css';
-import { useState } from 'react';
-import { Box } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -53,78 +51,61 @@ export const SideBar = () => {
         setOpen(false);
     };
 
-    const menuItems = navigation.getMyMenu();
-    return (
-        <>
-            <Box>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleDrawerOpen}
-                    edge="start"
-                    sx={{ mr: 1, ...(open && { display: 'none' }) }}
+  const menuItems = authorization.getMyMenu();
+  return (
+    <>
+        <Box>
+            <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                sx={{ mr: 1, ...(open && { display: 'none' }) }}
                 >
-                    <MenuIcon />
-                </IconButton>
-            </Box>
-            <Drawer
-                sx={{
-                    width: open ? `${drawerWidth}px` : 0,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
-                        width: `${drawerWidth}px`,
-                        boxSizing: 'border-box',
-                    },
-                }}
-                variant="persistent"
-                anchor="left"
-                open={open}
+                <MenuIcon />
+            </IconButton>
+        </Box>
+        <Drawer
+            sx={{
+                width: open ? `${drawerWidth}px` : 0,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                    width: `${drawerWidth}px`,
+                    boxSizing: 'border-box',
+                },
+            }}
+            variant="persistent"
+            anchor="left"
+            open={open}
             >
-                <div className="sideBarLayout sideBarStyle">
-                    <div>
-                        <DrawerHeader>
-                            <IconButton onClick={handleDrawerClose}>
-                                <ChevronLeftIcon />
-                            </IconButton>
-                        </DrawerHeader>
-                        <Sidebar width={'100%'} rootStyles={{ border: 0 }}>
-                            <Menu className="menuLayout">
-                                {menuItems.map(
-                                    (
-                                        item: MMMenuItem | MMSubMenu,
-                                        idx
-                                    ): JSX.Element => (
-                                        <>
-                                            {'subItems' in item ? (
-                                                <MMSubMenuComponent
-                                                    {...item}
-                                                    key={idx}
-                                                />
-                                            ) : (
-                                                <MMMenuItemComponent
-                                                    {...item}
-                                                    key={idx}
-                                                />
-                                            )}
-                                        </>
-                                    )
-                                )}
-                            </Menu>
-                        </Sidebar>
-                    </div>
-                    <div className="logoFrameLayout logoFrameStyle">
-                        <img
-                            className="logoLayout logoStyle"
-                            src={
-                                process.env.REACT_APP_APP_URL + '/LogoLong.png'
-                            }
-                            alt=""
-                        />
-                    </div>
+            <div className="sideBarLayout sideBarStyle">                        
+            <DrawerHeader>
+                <IconButton onClick={handleDrawerClose}>
+                    <ChevronLeftIcon />
+                </IconButton>
+            </DrawerHeader>
+            <Sidebar>
+                <Menu className="menuLayout">
+                    { menuItems.map((item:MMMenuItem|MMSubMenu):JSX.Element => (
+                        <>
+                        { 'subItems' in item ? 
+                            (<MMSubMenuComponent {...item}/>) 
+                            : (<MMMenuItemComponent {...item}/>) 
+                        }
+                    </>
+                    ))}
+                </Menu>
+                <div className="logoFrameLayout logoFrameStyle">
+                    <img className="logoLayout logoStyle"
+                        src={process.env.REACT_APP_APP_URL + "/LogoLong.png"}
+                        alt=""
+                    />
                 </div>
-            </Drawer>
-        </>
-    );
+            </Sidebar>
+            </div>
+        </Drawer>
+    </>          
+  );
 };
 
 const MMSubMenuComponent = ({ name, subItems }: MMSubMenu) => {
@@ -139,6 +120,7 @@ const MMSubMenuComponent = ({ name, subItems }: MMSubMenu) => {
                 />
             }
             label={name}
+            key={name}
         >
             {subItems.map(
                 (subItem: MMMenuItem): JSX.Element => (
@@ -155,6 +137,7 @@ const MMMenuItemComponent = ({ name, path, icon }: MMMenuItem) => {
             className="menuItemLayout menuItemStyle"
             component={<Link to={path} />}
             icon={icon}
+            key={name}
         >
             {name}
         </MenuItem>
