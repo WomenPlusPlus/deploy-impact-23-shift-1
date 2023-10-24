@@ -17,7 +17,6 @@ class Candidate(models.Model):
     jobapplications = models.TextField(db_column='jobApplications', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
 
     class Meta:
-        managed = False
         db_table = 'candidate'
 
 
@@ -34,7 +33,6 @@ class Job(models.Model):
     appplicationdeadline = models.DateField(db_column='appplicationDeadline', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'job'
 
 
@@ -51,6 +49,5 @@ class User(models.Model):
     usertype = models.TextField(db_column='userType', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'user'
 

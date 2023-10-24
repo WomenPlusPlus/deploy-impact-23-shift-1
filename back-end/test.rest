@@ -72,7 +72,37 @@ Content-Type: application/json
         }
 
 
-#####
+######
+
+GET http://127.0.0.1:8000/get_users/
+Content-Type: application/json
+
+
+######
+
+DELETE http://127.0.0.1:8000/delete_users/
+Content-Type: application/json
+
+{ "username": "paivi.kero@gmail.com" }
+
+######
+
+DELETE http://127.0.0.1:8000/delete_user/
+Content-Type: application/json
+
+{ "username": "susa.phoenix@gmail.com" }
+
+######
+
+GET http://127.0.0.1:8000/get_candidates/
+Content-Type: application/json
+
+######
+
+GET http://127.0.0.1:8000/get_jobs/
+Content-Type: application/json
+
+###########
 
 GET http://127.0.0.1:8000/match_making_algorithm/
 Content-Type: application/json
