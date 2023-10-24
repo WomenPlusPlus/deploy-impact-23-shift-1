@@ -18,6 +18,12 @@ from .utils import *
 
 
 @api_view(['GET'])
+def get_users(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def get_candidates(request):
     candidates = Candidate.objects.all()
     serializer = CandidateSerializer(candidates, many=True)

@@ -28,4 +28,14 @@ using docker:
   docker-compose up --build
 
 without docker:
+  copy example.env file as .env
+  add the database info to .env file
+
+  pip install djangorestframework
+  pip install django-cors-headers
+  pip install django-environ
+  python manage.py makemigrations
+  python manage.py migrate
   python manage.py runserver 
+  or
+  python manage.py runserver 0.0.0.0:8000
