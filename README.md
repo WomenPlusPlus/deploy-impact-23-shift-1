@@ -2,7 +2,7 @@
 
 - create first user from supabase.com/dashboard in the authentication/users menu
 - send the signup request to backend with this data (for now you can use the test.rest - test case Mauro provided):
-{ "username": "email address of the user you created in supabase", "password": "User UID that you find in the supabase dashboard where you created the first user", "email": "email address of the user you created in supabase", "is_staff": "true" }
+{ "username": "email address of the user you created in supabase", "password": "User UID that you find in the supabase dashboard where you created the first user", "email": "email address of the user you created in supabase", "usertype": "admin" }
 - we need a better process for creating the first admin user!!!
 
 
@@ -28,4 +28,14 @@ using docker:
   docker-compose up --build
 
 without docker:
+  copy example.env file as .env
+  add the database info to .env file
+
+  pip install djangorestframework
+  pip install django-cors-headers
+  pip install django-environ
+  python manage.py makemigrations
+  python manage.py migrate
   python manage.py runserver 
+  or
+  python manage.py runserver 0.0.0.0:8000
