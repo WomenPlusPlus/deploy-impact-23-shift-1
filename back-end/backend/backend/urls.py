@@ -30,5 +30,6 @@ urlpatterns = [
     re_path("get_candidates/", views.get_candidates),
     re_path("get_jobs/", views.get_jobs),
     re_path("post_job", views.create_job),
-    re_path("match_making", views.match_making),
+    re_path("match_candidate", views.match_candidate),
+    re_path("match_job_company", views.match_job_company),
 ]
