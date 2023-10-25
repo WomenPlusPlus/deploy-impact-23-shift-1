@@ -109,7 +109,15 @@ Content-Type: application/json
 
 ######
 
-GET http://127.0.0.1:8000/match_candidate/
+GET http://127.0.0.1:8000/match_candidate/?candidateid=1
+Content-Type: application/json
+
+{ "candidateid": 1 }
+
+######
+
+
+POST http://127.0.0.1:8000/match_candidate_post/
 Content-Type: application/json
 
 { "candidateid": 1 }
