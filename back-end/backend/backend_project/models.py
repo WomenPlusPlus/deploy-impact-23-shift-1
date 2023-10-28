@@ -2,22 +2,27 @@ from django.db import models
 
 ### ->python manage.py inspectdb<- find the model for each table in db !!
 
-class Candidate(models.Model):
-    candidateid = models.BigAutoField(db_column='candidateID', primary_key=True)  # Field name made lowercase.
-    userid = models.BigIntegerField(db_column='userID')  # Field name made lowercase.
-    jobid = models.BigIntegerField(db_column='jobID')  # Field name made lowercase.
-    headline = models.TextField(blank=True, null=True)
-    skills = models.TextField(blank=True, null=True)  # This field type is a guess.
-    educationhistory = models.TextField(db_column='educationHistory', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    workexperience = models.TextField(db_column='workExperience', blank=True, null=True)  # Field name made lowercase.
-    certification = models.TextField(blank=True, null=True)
-    volunteering = models.TextField(blank=True, null=True)
-    preferredjoblocations = models.TextField(db_column='preferredJobLocations', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    resume = models.TextField(blank=True, null=True)
-    jobapplications = models.TextField(db_column='jobApplications', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+class Role(models.Model):
+    role_id = models.BigAutoField(db_column='candidateID', primary_key=True)  # Field name made lowercase.
+    name = models.TextField(blank=True, null=True)
 
     class Meta:
-        db_table = 'candidate'
+        db_table = 'role'
+
+class User(models.Model):
+    userid = models.BigAutoField(db_column='userID', primary_key=True)  # Field name made lowercase.
+    username = models.TextField()
+    password = models.TextField()
+    email = models.TextField(blank=True, null=True)
+    firstname = models.TextField(db_column='firstName', blank=True, null=True)  # Field name made lowercase.
+    lastname = models.TextField(db_column='lastName', blank=True, null=True)  # Field name made lowercase.
+    contactnumber = models.TextField(db_column='contactNumber', blank=True, null=True)  # Field name made lowercase.
+    profilepicture = models.TextField(db_column='profilePicture', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+    registrationdate = models.DateField(db_column='registrationDate', blank=True, null=True)  # Field name made lowercase.
+    usertype = models.TextField(db_column='userType', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        db_table = 'user'
 
 
 class Job(models.Model):
@@ -35,19 +40,43 @@ class Job(models.Model):
     class Meta:
         db_table = 'job'
 
+class ExpertiseCategories(models.Model):
+    type = models.TextField(db_column='type', blank=True, null=True)  # Field name made lowercase. 
+    class Meta:
+        db_table = 'expertiseCategories'
 
-class User(models.Model):
-    userid = models.BigAutoField(db_column='userID', primary_key=True)  # Field name made lowercase.
-    username = models.TextField()
-    password = models.TextField()
-    email = models.TextField(blank=True, null=True)
-    firstname = models.TextField(db_column='firstName', blank=True, null=True)  # Field name made lowercase.
-    lastname = models.TextField(db_column='lastName', blank=True, null=True)  # Field name made lowercase.
-    contactnumber = models.TextField(db_column='contactNumber', blank=True, null=True)  # Field name made lowercase.
-    profilepicture = models.TextField(db_column='profilePicture', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    registrationdate = models.DateField(db_column='registrationDate', blank=True, null=True)  # Field name made lowercase.
-    usertype = models.TextField(db_column='userType', blank=True, null=True)  # Field name made lowercase.
+class Expertise(models.Model):   
+    expertise = models.ManyToManyField(ExpertiseCategories)
+    years = models.IntegerField(blank=True, null=True)
+    class Meta:
+        db_table = 'expertise'
+
+
+class Language(models.Model):
+    level = models.IntegerField(blank=True, null=True)
+    class Meta:
+        db_table = 'language'
+
+class Candidate(models.Model):
+    candidate_id = models.BigAutoField(db_column='candidateID', primary_key=True)  # Field name made lowercase.
+    users = models.ManyToManyField(User)
+    jobs = models.ManyToManyField(Job)
+    preferred_roles = models.ManyToManyField(Role)
+    location = models.TextField(blank=True, null=True)
+    relocation = models.BooleanField()
+    expertise = models.ManyToManyField(Expertise)
+    language = models.ManyToManyField(Language)
+    education = models.TextField(db_column='educationHistory', blank=True, null=True)  # Field name made lowercase. 
+    work_experience = models.TextField(db_column='workExperience', blank=True, null=True)  # Field name made lowercase.
+    volunteer_experience = models.TextField(db_column='volunteerExperience', blank=True, null=True)  # Field name made lowercase.
+    certification = models.TextField(blank=True, null=True)
+    preferredjoblocations = models.TextField(db_column='preferredJobLocations', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        db_table = 'user'
+        db_table = 'candidate'
+
+
+
+
+
 
