@@ -15,6 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password  # Import Django's password hashing function
 from django.contrib.auth import authenticate
 from .utils import *
+import json
 
 
 @api_view(['GET'])
@@ -78,6 +79,67 @@ def signup(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+def match_candidate_post(request):
+    print(request.data)
+    print("post........")
+
+    candidate = Candidate.objects.get(candidateid=request.data['candidateid'])
+    candidate_data = CandidateSerializer(candidate).data
+    print(candidate_data)
+
+    #get jobs data
+    jobs = Job.objects.all()
+    serializer_job = JobSerializer(jobs, many=True)
+
+    for job in serializer_job.data:
+        print("\n")
+        print(json.dumps(job))
+
+    matching_results = "??" # matchingFunction(candidate, job_data)
+
+    return Response(matching_results)
+
+@api_view(['GET'])
+def match_candidate(request):
+    print(request.GET["candidateid"])
+    print("....get....")
+    if request.GET["candidateid"]:
+        candidate = Candidate.objects.get(candidateid=request.GET['candidateid'])
+        candidate_data = CandidateSerializer(candidate).data
+        print(candidate_data)
+
+        #get jobs data
+        jobs = Job.objects.all()
+        serializer_job = JobSerializer(jobs, many=True)
+
+        for job in serializer_job.data:
+            print("\n")
+            print(json.dumps(job))
+
+        matching_results = "??" # matchingFunction(candidate, job_data)
+
+        return Response(matching_results)
+    return Response("no candidate id", status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def match_job_company(request):
+
+    job = Job.objects.get(jobid=request.data['jobid'])
+    job_data = JobSerializer(job).data
+    print(job_data)
+
+    #get candidates data
+    candidates = Candidate.objects.all()
+    serializer_candidate = CandidateSerializer(candidates, many=True)
+
+    for candidate in serializer_candidate.data:
+      print("\n")
+      print(json.dumps(candidate))
+
+    matching_results = "??" # matchingFunction(job, candidate_data)
+
+    return Response(matching_results)
 
 @api_view(['POST'])
 def login(request):

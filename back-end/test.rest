@@ -102,5 +102,29 @@ Content-Type: application/json
 GET http://127.0.0.1:8000/get_jobs/
 Content-Type: application/json
 
+###########
+
+GET http://127.0.0.1:8000/match_making_algorithm/
+Content-Type: application/json
+
 ######
 
+GET http://127.0.0.1:8000/match_candidate/?candidateid=1
+Content-Type: application/json
+
+{ "candidateid": 1 }
+
+######
+
+
+POST http://127.0.0.1:8000/match_candidate_post/
+Content-Type: application/json
+
+{ "candidateid": 1 }
+
+######
+
+GET http://127.0.0.1:8000/match_job_company/
+Content-Type: application/json
+
+{ "jobid": 1 }

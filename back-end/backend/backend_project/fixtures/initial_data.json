@@ -1,0 +1,310 @@
+[
+    {
+      "model": "backend_project.industry",
+      "pk": 1,
+      "fields": {
+        "name": "Tech"
+      }
+    },
+    {
+      "model": "backend_project.industry",
+      "pk": 2,
+      "fields": {
+        "name": "Medical"
+      }
+    },
+    {
+      "model": "backend_project.industry",
+      "pk": 3,
+      "fields": {
+        "name": "Sales"
+      }
+    },
+    {
+      "model": "backend_project.industry",
+      "pk": 4,
+      "fields": {
+        "name": "Healthcare"
+      }
+    },
+    {
+      "model": "backend_project.industry",
+      "pk": 5,
+      "fields": {
+        "name": "Science"
+      }
+    },
+    {
+      "model": "backend_project.industry",
+      "pk": 6,
+      "fields": {
+        "name": "Financial Services"
+      }
+    },
+    {
+      "model": "backend_project.industry",
+      "pk": 7,
+      "fields": {
+        "name": "Telecommunication"
+      }
+    },
+    {
+      "model": "backend_project.industry",
+      "pk": 8,
+      "fields": {
+        "name": "Software"
+      }
+    },
+    {
+      "model": "backend_project.industry",
+      "pk": 9,
+      "fields": {
+        "name": "Insurance"
+      }
+    },
+    {
+      "model": "backend_project.industry",
+      "pk": 10,
+      "fields": {
+        "name": "Media"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 1,
+      "fields": {
+        "name": "UX Design"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 2,
+      "fields": {
+        "name": "UX Research"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 3,
+      "fields": {
+        "name": "Tech"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 4,
+      "fields": {
+        "name": "Banking"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 5,
+      "fields": {
+        "name": "Crypto-currency"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 6,
+      "fields": {
+        "name": "Machine Learning"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 7,
+      "fields": {
+        "name": "Software Engineering"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 8,
+      "fields": {
+        "name": "Artificial Intelligence"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 9,
+      "fields": {
+        "name": "Accounting"
+      }
+    },
+    {
+      "model": "backend_project.expertisecategory",
+      "pk": 10,
+      "fields": {
+        "name": "Marketing"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 1,
+      "fields": {
+        "name": "Diversity"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 2,
+      "fields": {
+        "name": "Collaboration"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 3,
+      "fields": {
+        "name": "Ethics"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 4,
+      "fields": {
+        "name": "Commitment"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 5,
+      "fields": {
+        "name": "Compassion"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 6,
+      "fields": {
+        "name": "Innovative"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 7,
+      "fields": {
+        "name": "Excellence"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 8,
+      "fields": {
+        "name": "Equality"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 9,
+      "fields": {
+        "name": "Honesty"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 10,
+      "fields": {
+        "name": "Sustainability"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 11,
+      "fields": {
+        "name": "Customer Satisfaction"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 12,
+      "fields": {
+        "name": "Accessibility"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 13,
+      "fields": {
+        "name": "Integrity"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 14,
+      "fields": {
+        "name": "Fairness"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 15,
+      "fields": {
+        "name": "Selflessness"
+      }
+    },
+    {
+      "model": "backend_project.value",
+      "pk": 16,
+      "fields": {
+        "name": "Respect"
+      }
+    },
+    {
+      "model": "backend_project.worklocation",
+      "pk": 1,
+      "fields": {
+        "name": "Remote"
+      }
+    },
+    {
+      "model": "backend_project.worklocation",
+      "pk": 2,
+      "fields": {
+        "name": "Hybrid"
+      }
+    },
+    {
+      "model": "backend_project.worklocation",
+      "pk": 3,
+      "fields": {
+        "name": "On-site"
+      }
+    },
+    {
+      "model": "backend_project.worklocation",
+      "pk": 4,
+      "fields": {
+        "name": "Other"
+      }
+    },
+    {
+      "model": "backend_project.languagecategory",
+      "pk": 1,
+      "fields": {
+        "name": "English"
+      }
+    },
+    {
+      "model": "backend_project.languagecategory",
+      "pk": 2,
+      "fields": {
+        "name": "German"
+      }
+    },
+    {
+      "model": "backend_project.languagecategory",
+      "pk": 3,
+      "fields": {
+        "name": "French"
+      }
+    },
+    {
+      "model": "backend_project.languagecategory",
+      "pk": 4,
+      "fields": {
+        "name": "Italian"
+      }
+    }
+  ]
