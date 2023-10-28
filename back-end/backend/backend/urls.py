@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import re_path, path, include
+
 from backend_project import views
 
 urlpatterns = [
@@ -33,4 +34,5 @@ urlpatterns = [
     # re_path("match_candidate/", views.match_candidate),
     re_path("match_candidate_post/", views.match_candidate_post),
     re_path("match_job_company/", views.match_job_company),
+    re_path("match_job_candidate_post/", views.match_job_candidate_post),
 ]
