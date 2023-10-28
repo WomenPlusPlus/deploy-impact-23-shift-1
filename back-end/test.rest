@@ -1,17 +1,130 @@
+
 POST http://127.0.0.1:8000/signup/
 Content-Type: application/json
 
-{ "username": "adam", "password": "Pass1234!", "email": "adam@mail.com" }
+{
+    "username": "john_doe",
+    "password": "secure_password",
+    "email": "john.doe@example.com",
+    "firstname": "John",
+    "lastname": "Doe",
+    "contactnumber": "123-456-7890",
+    "usertype": "standard",
+    "cazzimazzi": "dssfdf",
+    "yoyoyo": "34csdc",
+    "555": "asdfvcz"
+}
+
+# { "username": "adam", "password": "Pass1234!", "email": "adam@mail.com" }
+
+
+##########
+
+POST http://127.0.0.1:8000/127.0.0.1:8000/signup/
+Content-Type: application/json
+
+{
+    "username": "john_doe",
+    "password": "secure_password",
+    "email": "john.doe@example.com",
+    "firstname": "John",
+    "lastname": "Doe",
+    "contactnumber": "123-456-7890",
+    "usertype": "candidate", 
+    "jobid": 123, 
+    "headline": "Experienced Sales Professional",
+    "workexperience": "sdgsdg",
+    "certification": "woooow",
+    "volunteering": "ya maybe",
+    "resume": "qwsdcc"
+}
 
 ###
 
 POST http://127.0.0.1:8000/login/
 Content-Type: application/json
 
-{ "username": "adam", "password": "Pass1234!" }
+{ "username": "john_doe", "password": "secure_password" }
 
-###
+######
 
-GET http://127.0.0.1:8000/test_token 
+# GET http://127.0.0.1:8000/test_token 
+# Content-Type: application/json
+# Authorization: token 66ba7733cb404465724d39ec4ae0dbc8714ef42e
+
+
+
+#####
+
+POST http://127.0.0.1:8000/post_job/
 Content-Type: application/json
-Authorization: token 66ba7733cb404465724d39ec4ae0dbc8714ef42e
+
+{
+            "companyid": 2,
+            "associationid": 5,
+            "title": "Exciting New Job",
+            "description": "Join our team for an exciting new opportunity!",
+            "jobtype": "Contract",
+            "category": "Sales",
+            "location": "Chicago",
+            "salaryrange": "70,000 - 90,000",
+            "appplicationdeadline": "2024-03-20"
+        }
+
+
+######
+
+GET http://127.0.0.1:8000/get_users/
+Content-Type: application/json
+
+
+######
+
+DELETE http://127.0.0.1:8000/delete_users/
+Content-Type: application/json
+
+{ "username": "paivi.kero@gmail.com" }
+
+######
+
+DELETE http://127.0.0.1:8000/delete_user/
+Content-Type: application/json
+
+{ "username": "susa.phoenix@gmail.com" }
+
+######
+
+GET http://127.0.0.1:8000/get_candidates/
+Content-Type: application/json
+
+######
+
+GET http://127.0.0.1:8000/get_jobs/
+Content-Type: application/json
+
+###########
+
+GET http://127.0.0.1:8000/match_making_algorithm/
+Content-Type: application/json
+
+######
+
+GET http://127.0.0.1:8000/match_candidate/?candidateid=1
+Content-Type: application/json
+
+{ "candidateid": 1 }
+
+######
+
+
+POST http://127.0.0.1:8000/match_candidate_post/
+Content-Type: application/json
+
+{ "candidateid": 1 }
+
+######
+
+GET http://127.0.0.1:8000/match_job_company/
+Content-Type: application/json
+
+{ "jobid": 1 }
