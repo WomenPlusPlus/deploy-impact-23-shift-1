@@ -22,7 +22,7 @@ export enum LoginType {
 }
 
 export enum Role {
-  Non = "nondef",
+  Non = "unknown",
   Admin = "admin",
   Association = "assosication",
   Candidate = "candidate",
@@ -34,6 +34,7 @@ export interface InitialState {
     loginType: LoginType,
     role: Role,
     token: string,
+    username: string,
 }
 
 const initialState: InitialState = {
@@ -41,6 +42,7 @@ const initialState: InitialState = {
     loginType: LoginType.Non,
     role: Role.Non,
     token: "",
+    username: "",
 }
 
 export const login = createAsyncThunk(
@@ -53,7 +55,7 @@ export const login = createAsyncThunk(
           password: secretid,
       });
     }
-    if (result?.status === 200) {
+    if (result?.status === 200) {      
       return result.data;
     } else {
       // TODO: error handling
@@ -63,19 +65,25 @@ export const login = createAsyncThunk(
 
 export const signup = createAsyncThunk(
   "auth/signup",
-  async ({ email, secretid, role }:{email: string | undefined, secretid: string | null, role: string | null}) => {
+  async ({ username, secretid, role, email, name, phone }:{username: string | undefined, secretid: string | null, role: string | null, email: string | undefined, name: string | null, phone: string | null}) => {
     let result;
     if (email && secretid) {
       const userData = {
-        username: email,
+        username: username,
         password: secretid,
         email: email,
-        usertype: role
+        user_type: role,
+        name: name,
+        phone_number: phone,
+        // TODO: get from UI
+        terms_and_conditions: true,
+        privacy_policy: true,
       }
       result = await axios.post(`${apiUrl}/signup/`, userData);
     }
     if (result?.status === 201) {
       return {
+        username: username,
         role: role,
         token: result.data.token,
       };
@@ -93,6 +101,8 @@ export const authenticationSlice = createSlice({
             state.status = AuthenticationStatus.LoggedOut;
             state.role = Role.Non;
             state.loginType = LoginType.Non;
+            state.username = "";
+            state.token = "";
         },
         inviteeLogin(state) {
             state.status = AuthenticationStatus.InviteeAuthenticated;
@@ -110,9 +120,9 @@ export const authenticationSlice = createSlice({
           })
           .addCase(login.fulfilled, (state, action) => {
             state.status = AuthenticationStatus.Authenticated;
-            state.role = action.payload.user.usertype;
+            state.role = action.payload.user.user_type;
             state.loginType = LoginType.NormalLogin;
-
+            state.username = action.payload.user.email;
             state.token = action.payload.token;            
           })
           .addCase(login.rejected, (state, action) => {
@@ -123,6 +133,7 @@ export const authenticationSlice = createSlice({
           .addCase(signup.fulfilled, (state, action) => {
             state.status = AuthenticationStatus.Authenticated;
             state.role = action.payload?.role ? action.payload?.role as Role : Role.Non;
+            state.username = action.payload?.username ? action.payload?.username : "";
             state.token = action.payload?.token;  
           })
           .addCase(signup.rejected, (state, action) => {

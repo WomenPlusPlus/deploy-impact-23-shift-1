@@ -7,22 +7,26 @@ import Box from '@mui/material/Box';
 
 import { Login } from "../Pages/Login";
 import { SignUp } from "../Pages/SignUp";
+import { SignUpContinue } from "../Pages/SignUpContinue";
 import { PasswordReset } from '../Pages/PasswordReset';
 
 import { authentication } from "../Services/Authentication";
 import { AuthenticationStatus } from '../Services/AuthenticationSlice';
 import { SideBar } from './SideBar';
-import { authorization, MMMenuItem } from "./Authorization";
+import { authorization, RoutingItem } from "./Authorization";
 
 import './SideBar.css';
 
 function AuthNavigator() {
   const location = useLocation();
 
+    //const authenticationStatus: AuthenticationStatus =  AuthenticationStatus.InviteeAuthenticated as AuthenticationStatus;
     const authenticationStatus: AuthenticationStatus = useSelector(
         (state: RootState) => state.auth.status
-    );
+    );   
 
+
+    console.log("stat", authenticationStatus)
   const pathName:string | null = location?.pathname?.split("/")[1]
   useEffect(() => {
     const accessToken:string | null = location?.hash?.split("&")[0]?.split("=")[1]
@@ -45,11 +49,12 @@ function AuthNavigator() {
   } else if(authenticationStatus === AuthenticationStatus.Pending ||
     (pathName === "signup" && (authenticationStatus === AuthenticationStatus.NotAuthenticated || authenticationStatus === AuthenticationStatus.LoggedOut))) {
     return <div>Processing...</div>
-  } else if (authenticationStatus === AuthenticationStatus.InviteeAuthenticated) {    
+  } else if (authenticationStatus === AuthenticationStatus.InviteeAuthenticated) {  
     return (
       <Routes>
         <Route key="root" path="/*" element={<SignUp />} />
         <Route key="signup" path="signup/*" element={<SignUp />} />
+        <Route key="signupcontinue" path="signupcontinue/*" element={<SignUpContinue />} />
       </Routes>
     );
   } else if (authenticationStatus === AuthenticationStatus.Authenticated) {
@@ -63,7 +68,7 @@ function AuthNavigator() {
         <SideBar></SideBar>
         <Routes>
           <Route path="/*" element={authorization.getMyMainPage()} />
-          { authorization.getMyRoutes().map((route:MMMenuItem) =>  (
+          { authorization.getMyRoutes().map((route:RoutingItem) =>  (
             <Route key={route.path} path={route.path+"/*"} element={route.page} />
           ))}
         </Routes>

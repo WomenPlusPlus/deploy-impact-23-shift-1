@@ -76,12 +76,19 @@ class Authentication {
         }
     }
 
-    async signupInvitee(password:string) {
+    async signupInvitee(password:string, email:string, name:string, phone:string) {
         const user = await this.getUser();
         if(user) {
             // TODO: improve error handling
             await this.supabaseClient.auth.updateUser({ password: password })
-            store.dispatch(signup({email: user.email, secretid: user.id, role: user.user_metadata.user_metadata.type}));  
+            store.dispatch(signup({
+                username: user.email, 
+                secretid: user.id, 
+                role: user.user_metadata.user_metadata.type,
+                email: email,
+                name: name,
+                phone: phone
+            }));  
         }
     }
 

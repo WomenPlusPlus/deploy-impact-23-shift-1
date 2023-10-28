@@ -4,7 +4,7 @@ import { SectionDescriptionCard } from './shared/SectionDescriptionCard';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '../../UI/Button';
-import LogoXS from './assets/MM_logo_xs.png';
+import LogoXS from '../assets/MM_logo_xs.png';
 import Properties from './shared/Properties';
 
 export const JobInterests = ({ data }: { data: any }) => {
