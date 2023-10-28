@@ -200,6 +200,21 @@ def match_job_company(request):
 
     return Response(matching_results)
 
+@api_view(['POST'])
+def match_job_candidate_post(request):
+    job_id = request.data.get('jobid')
+    job_description = JOBS_DICT[job_id]   #TODO: fetch from db
+
+    matching_results = []
+    for candidate_id, candidate_profile in CANDIDATES_DICT.items():    #TODO: fetch from db
+        # Calculate matching results for each job
+        matching_score = matchingFunction(candidate_profile, job_description)
+        matching_results.append({
+            "candidate_id": candidate_id,
+            "matching_score": matching_score
+        })
+
+    return Response(matching_results)
 
 @api_view(['POST'])
 def login(request):
