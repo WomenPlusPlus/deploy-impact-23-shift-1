@@ -1,0 +1,111 @@
+.sideBarLayout {
+    display: flex;
+    height: 100vh;
+    padding: var(--none, 0px);
+    flex-direction: column;
+    gap: var(--3, 24px);
+    flex-shrink: 0;
+}
+
+.sideBarStyle {
+    border-radius: var(--none, 0px);
+}
+
+.menuLayout {
+    align-items: flex-start;
+    border: none;
+}
+
+.appLayout {
+    display: inline-flex;
+    padding-right: var(--none, 0px);
+    align-items: center-top;
+    /*  TODO: return to this when more content in the pages??? 
+    align-items: center; 
+*/
+    gap: var(--none, 0px);
+}
+
+.appStyle {
+    border-radius: var(--none, 0px);
+    background: #fbfcfd;
+}
+
+.logoFrameLayout {
+    width: 100%;
+    align-self: flex-end;
+    gap: var(--none, 0px);
+}
+
+.logoFrameStyle {
+    border-radius: var(--none, 0px);
+    border: 1px solid #e5e5e5;
+    background: #fff;
+}
+
+.logoLayout {
+    width: 100%;
+}
+
+.logoStyle {
+    border-radius: var(--none, 0px);
+    background: lightgray -9.447px -8px / 107.561% 181.818% no-repeat;
+}
+
+.imageLayout {
+    height: var(--5, 50px);
+    flex-shrink: 0;
+}
+
+.imageStyle {
+    border-radius: var(--none, 0px);
+    background: lightgray 50% / cover no-repeat;
+}
+
+.subMenuItemLayout {
+    display: flex;
+    width: 191px;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+    padding: var(--4, 3px) var(--2, 3px);
+}
+
+.subMenuItemStyle {
+    color: var(--text-main, rgba(0, 0, 0, 0.87));
+    font-family: Outfit;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.menuItemLayout {
+    display: flex;
+    width: 191px;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+}
+
+.menuItemStyle {
+    color: var(--text-main, rgba(0, 0, 0, 0.87));
+    font-family: Outfit;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.logoutMenuItemStyle {
+    color: var(--red, #ff4545);
+    font-family: Outfit;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.logoutIconStyle {
+    color: var(--red, #ff4545);
+}
