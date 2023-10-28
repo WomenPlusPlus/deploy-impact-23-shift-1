@@ -28,38 +28,86 @@ class User(models.Model):
     class Meta:
         db_table = 'user'
 
+class ExpertiseCategory(models.Model):
+    name = models.TextField(blank=True, null=True)  # Field name made lowercase. 
+    class Meta:
+        db_table = 'expertise_category'
+
+class Expertise(models.Model):   
+    expertise = models.ManyToManyField(ExpertiseCategory)
+    years = models.IntegerField(blank=True, null=True)
+    class Meta:
+        db_table = 'expertise'
+
+class LanguageCategory(models.Model):
+    name = models.TextField(blank=True, null=True)
+    class Meta:
+        db_table = 'languagecategory'
+
+class Language(models.Model):
+    language = models.ManyToManyField(LanguageCategory)
+    level = models.IntegerField(blank=True, null=True)
+    class Meta:
+        db_table = 'language'
+
+class Industry(models.Model):
+    name = models.TextField(blank=True, null=True)
+    class Meta:
+        db_table = 'industry'
+
+class Value(models.Model):
+    name = models.TextField(blank=True, null=True)
+    class Meta:
+        db_table = 'value'
+
+class WorkLocation(models.Model):
+    name = models.TextField(blank=True, null=True)
+    class Meta:
+        db_table = 'worklocation'
+
+class Benefit(models.Model):
+    name = models.TextField(blank=True, null=True)
+    class Meta:
+        db_table = 'benefit'
+
+
+class Company(models.Model):
+    company_id = models.BigAutoField(db_column='companyID', primary_key=True)  # Field name made lowercase.
+    name = models.TextField(blank=True, null=True)
+    website = models.TextField(blank=True, null=True)
+    email = models.TextField(blank=True, null=True)
+    contactnumber = models.TextField(db_column='contactNumber', blank=True, null=True)  # Field name made lowercase.
+    linkedin = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    registrationdate = models.DateField(db_column='registrationDate', blank=True, null=True)  # Field name made lowercase.
+    industry = models.ManyToManyField(Industry)
+    value = models.ManyToManyField(Value)
+    worklocation = models.ManyToManyField(WorkLocation)
+    benefits = models.ManyToManyField(Benefit)
+    language = models.ManyToManyField(Language)
+    
+    class Meta:
+        db_table = 'company'
+
 
 class Job(models.Model):
-    jobid = models.BigAutoField(db_column='jobID', primary_key=True)  # Field name made lowercase.
-    companyid = models.BigIntegerField(db_column='companyID')  # Field name made lowercase.
-    associationid = models.BigIntegerField(db_column='associationID')  # Field name made lowercase.
+    job_id = models.BigAutoField(db_column='jobID', primary_key=True)  # Field name made lowercase.
+    is_published = models.BooleanField()
+    company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
     title = models.TextField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)    
+    location = models.TextField(blank=True, null=True)
+    expertise = models.ManyToManyField(Expertise)
+    language = models.ManyToManyField(Language)
+    worklocation = models.ManyToManyField(WorkLocation)
+
     jobtype = models.TextField(db_column='jobType', blank=True, null=True)  # Field name made lowercase.
     category = models.TextField(blank=True, null=True)
-    location = models.TextField(blank=True, null=True)
     salaryrange = models.TextField(db_column='salaryRange', blank=True, null=True)  # Field name made lowercase.
     appplicationdeadline = models.DateField(db_column='appplicationDeadline', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         db_table = 'job'
-
-class ExpertiseCategories(models.Model):
-    type = models.TextField(db_column='type', blank=True, null=True)  # Field name made lowercase. 
-    class Meta:
-        db_table = 'expertiseCategories'
-
-class Expertise(models.Model):   
-    expertise = models.ManyToManyField(ExpertiseCategories)
-    years = models.IntegerField(blank=True, null=True)
-    class Meta:
-        db_table = 'expertise'
-
-
-class Language(models.Model):
-    level = models.IntegerField(blank=True, null=True)
-    class Meta:
-        db_table = 'language'
 
 class Candidate(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
