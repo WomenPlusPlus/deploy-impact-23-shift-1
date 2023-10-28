@@ -10,16 +10,20 @@ class Role(models.Model):
         db_table = 'role'
 
 class User(models.Model):
-    userid = models.BigAutoField(db_column='userID', primary_key=True)  # Field name made lowercase.
+    user_id = models.BigAutoField(primary_key=True)
+    user_type = models.TextField(blank=True, null=True)
     username = models.TextField()
     password = models.TextField()
+    name = models.TextField(blank=True, null=True)
+    preffered_name = models.TextField(blank=True, null=True)
     email = models.TextField(blank=True, null=True)
-    firstname = models.TextField(db_column='firstName', blank=True, null=True)  # Field name made lowercase.
-    lastname = models.TextField(db_column='lastName', blank=True, null=True)  # Field name made lowercase.
-    contactnumber = models.TextField(db_column='contactNumber', blank=True, null=True)  # Field name made lowercase.
-    profilepicture = models.TextField(db_column='profilePicture', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    registrationdate = models.DateField(db_column='registrationDate', blank=True, null=True)  # Field name made lowercase.
-    usertype = models.TextField(db_column='userType', blank=True, null=True)  # Field name made lowercase.
+    phone_number = models.TextField(blank=True, null=True)
+    image_url = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    terms_and_conditions = models.BooleanField()
+    privacy_policy = models.BooleanField()
+    registration_date = models.DateField(blank=True, null=True)
+    last_access_date = models.DateField(blank=True, null=True)
 
     class Meta:
         db_table = 'user'
@@ -58,20 +62,19 @@ class Language(models.Model):
         db_table = 'language'
 
 class Candidate(models.Model):
-    candidate_id = models.BigAutoField(db_column='candidateID', primary_key=True)  # Field name made lowercase.
-    users = models.ManyToManyField(User)
-    jobs = models.ManyToManyField(Job)
-    preferred_roles = models.ManyToManyField(Role)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     location = models.TextField(blank=True, null=True)
     relocation = models.BooleanField()
+    education = models.TextField(blank=True, null=True)
+    work_experience = models.TextField(blank=True, null=True)
+    volunteer_experience = models.TextField(blank=True, null=True)
+    courses = models.TextField(blank=True, null=True)
+    preffered_roles = models.ManyToManyField(Role)
+    
+    jobs = models.ManyToManyField(Job)
     expertise = models.ManyToManyField(Expertise)
     language = models.ManyToManyField(Language)
-    education = models.TextField(db_column='educationHistory', blank=True, null=True)  # Field name made lowercase. 
-    work_experience = models.TextField(db_column='workExperience', blank=True, null=True)  # Field name made lowercase.
-    volunteer_experience = models.TextField(db_column='volunteerExperience', blank=True, null=True)  # Field name made lowercase.
-    certification = models.TextField(blank=True, null=True)
-    preferredjoblocations = models.TextField(db_column='preferredJobLocations', blank=True, null=True)  # Field name made lowercase.
-
+    
     class Meta:
         db_table = 'candidate'
 
