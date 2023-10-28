@@ -87,3 +87,9 @@ local_settings.py
 
 .env
 db.sqlite3
+
+venv_maj
+
+downloaded_data/
+
+.idea/
