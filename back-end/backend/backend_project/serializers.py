@@ -27,11 +27,11 @@ class JobSerializer(serializers.ModelSerializer):
 class JobCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
-        exclude = ['jobid']
+        exclude = ['job_id']
 
 ### USER ###
 #post
 class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'password', 'email', 'firstname', 'lastname', 'contactnumber', 'usertype']
+        fields = '__all__'
