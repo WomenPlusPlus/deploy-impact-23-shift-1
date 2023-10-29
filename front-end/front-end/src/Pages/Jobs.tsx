@@ -7,7 +7,8 @@ import { Box, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typograph
 import AddIcon from '@mui/icons-material/Add';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
-import { Status, getJobs } from "../Services/JobsSlice";
+import { Status } from "../Services/ApiStatus"
+import { getJobs } from "../Services/JobsSlice";
 import { RootState } from "../Services/Store";
 
 import "../Styles/Styles.css"

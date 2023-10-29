@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authenticationReducer from "./AuthenticationSlice";
 import jobsReducer from "./JobsSlice"
+import matchingReducer from "./MatchingSlice"
 import { persistReducer, persistStore } from "redux-persist";
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 
@@ -23,7 +24,8 @@ const devToolsEnabled = process.env.REACT_APP_NODE_ENV?.toLowerCase() === "dev" 
 export const store = configureStore({
     reducer: {
         auth: persistedAuthenticationReducer,
-        jobs: jobsReducer
+        jobs: jobsReducer,
+        matching: matchingReducer
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
