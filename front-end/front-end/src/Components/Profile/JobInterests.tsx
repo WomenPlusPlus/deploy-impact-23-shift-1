@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '../../UI/Button';
 import LogoXS from '../assets/MM_logo_xs.png';
 import Properties from './shared/Properties';
+import { Link } from 'react-router-dom';
 
 export const JobInterests = ({ data }: { data: any }) => {
     return (
@@ -39,10 +40,16 @@ export const JobInterests = ({ data }: { data: any }) => {
                         Let us work for you.
                     </Typography>
                 </Box>
-                <Button onClick={() => {}} sx={{ ml: 1 }}>
-                    <img src={LogoXS} alt="" loading="lazy" width="35px" />{' '}
-                    <Typography ml={1}>Match me</Typography>
-                </Button>
+                <Link to="/matchme"  
+                        state={{ 
+                            candidateId: data.candidate_id
+                        }}
+                    >
+                    <Button onClick={() => {}} sx={{ ml: 1 }}>
+                        <img src={LogoXS} alt="" loading="lazy" width="35px" />{' '}
+                        <Typography ml={1}>Match me</Typography>
+                    </Button>
+                </Link>
             </Stack>
 
             <Box>

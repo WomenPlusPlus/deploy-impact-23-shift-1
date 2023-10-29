@@ -1,14 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "./Store";
+import { Status } from "./ApiStatus";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export enum Status {
-    Pending = "pending",
-    Fulfilled = "fulfilled",
-    Rejected = "rejected"
-}
 
 export interface InitialState {
     status: Status,

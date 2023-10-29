@@ -14,6 +14,7 @@ import { Job } from '../Pages/Job';
 
 import { store } from '../Services/Store';
 import { Role } from '../Services/AuthenticationSlice';
+import { MatchMe } from '../Pages/MatchMe';
 
 export interface MMMenu {
     printMyself(): JSX.Element;
@@ -35,6 +36,11 @@ export interface RoutingItem {
     path: string;
     page: JSX.Element;
 }
+
+/*
+NAVIGATION_<ROLE> is for the routing that is visible in the menu
+EXTRAROUTING_<ROLE> is routing that is not in the menu but used elsewhere in the app
+*/
 
 const NAVIGATION_ADMIN: MMMenuItem[] = [
     {
@@ -139,6 +145,13 @@ const NAVIGATION_CANDIDATE: (MMMenuItem | MMSubMenu)[] = [
     },
 ];
 
+const EXTRAROUTING_CANDIDATE:RoutingItem[] = [
+    {
+        path: "matchme",
+        page: <MatchMe />,
+    },
+]
+
 const NAVIGATION_LOGOUT: MMMenuItem[] = [
     {
         name: 'Log out',
@@ -170,7 +183,7 @@ export class Authorization {
         if(userRole === Role.Admin) {
             return []; //EXTRAROUTING_ADMIN;
         } else if(userRole === Role.Candidate) {
-            return []; // EXTRAROUTING_CANDIDATE;
+            return EXTRAROUTING_CANDIDATE;
         } else if(userRole === Role.Association) {
             return []; // EXTRAROUTING_ASSOSICATION;
         } else if(userRole === Role.Company) {

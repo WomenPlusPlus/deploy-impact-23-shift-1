@@ -1,4 +1,5 @@
 const CandidateProfileData = {
+    candidate_id: 2,
     name: 'Siddhesh Habtemichael',
     isNameVisible: true,
     prefferedName: 'Sid',
