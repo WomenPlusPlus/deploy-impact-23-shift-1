@@ -80,11 +80,11 @@ class Company(models.Model):
     linkedin = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     registrationdate = models.DateField(db_column='registrationDate', blank=True, null=True)  # Field name made lowercase.
-    industry = models.ManyToManyField(Industry)
-    value = models.ManyToManyField(Value)
-    worklocation = models.ManyToManyField(WorkLocation)
-    benefits = models.ManyToManyField(Benefit)
-    language = models.ManyToManyField(Language)
+    #industry = models.ManyToManyField(Industry)
+    #value = models.ManyToManyField(Value)
+    #worklocation = models.ManyToManyField(WorkLocation)
+    #benefits = models.ManyToManyField(Benefit)
+    #language = models.ManyToManyField(Language)
     
     class Meta:
         db_table = 'company'
@@ -97,9 +97,11 @@ class Job(models.Model):
     title = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)    
     location = models.TextField(blank=True, null=True)
-    expertise = models.ManyToManyField(Expertise)
-    language = models.ManyToManyField(Language)
-    worklocation = models.ManyToManyField(WorkLocation)
+    #expertise = models.ManyToManyField(Expertise)
+    #language = models.ManyToManyField(Language)
+    #expertise = models.ManyToManyField(ExpertiseCategory)
+    #language = models.ManyToManyField(LanguageCategory)
+    #worklocation = models.ManyToManyField(WorkLocation)
 
     jobtype = models.TextField(db_column='jobType', blank=True, null=True)  # Field name made lowercase.
     category = models.TextField(blank=True, null=True)
@@ -112,16 +114,16 @@ class Job(models.Model):
 class Candidate(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     location = models.TextField(blank=True, null=True)
-    relocation = models.BooleanField()
+    relocation = models.BooleanField(blank=True, null=True)
     education = models.TextField(blank=True, null=True)
     work_experience = models.TextField(blank=True, null=True)
     volunteer_experience = models.TextField(blank=True, null=True)
     courses = models.TextField(blank=True, null=True)
-    preffered_roles = models.ManyToManyField(Role)
+    preffered_roles = models.ManyToManyField(Role, blank=True)
     
-    jobs = models.ManyToManyField(Job)
-    expertise = models.ManyToManyField(Expertise)
-    language = models.ManyToManyField(Language)
+    jobs = models.ManyToManyField(Job, blank=True)
+    expertise = models.ManyToManyField(Expertise, blank=True)
+    language = models.ManyToManyField(Language, blank=True)
     
     class Meta:
         db_table = 'candidate'
