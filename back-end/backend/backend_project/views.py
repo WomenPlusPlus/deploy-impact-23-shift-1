@@ -26,6 +26,14 @@ def get_candidates(request):
 
 
 @api_view(['GET'])
+def get_candidate_details(request):
+    candidate_id = request.data.get('candidateid')
+    candidate = Candidate.objects.select_related('user').get(user=candidate_id)
+    serializer = CandidateDetailSerializer(candidate)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
 def get_jobs(request):
     jobs = Job.objects.all()
     serializer = JobSerializer(jobs, many=True)

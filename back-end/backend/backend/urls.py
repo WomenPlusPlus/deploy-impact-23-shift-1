@@ -30,6 +30,7 @@ urlpatterns = [
     # re_path("test_token/", views.test_token),
     re_path("post_candidate_profile/", views.create_candidate_profile),
     re_path("get_candidates/", views.get_candidates),
+    re_path("get_candidate_details/", views.get_candidate_details),
     re_path("post_company/", views.create_company),
     re_path("get_companies/", views.get_companies),
     re_path("get_jobs/", views.get_jobs),

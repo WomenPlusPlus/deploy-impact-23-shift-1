@@ -96,6 +96,13 @@ Content-Type: application/json
 
 ######
 
+GET http://127.0.0.1:8000/get_candidate_details/
+Content-Type: application/json
+
+{ "candidateid": 2 }
+
+######
+
 GET http://127.0.0.1:8000/get_companies/
 Content-Type: application/json
 

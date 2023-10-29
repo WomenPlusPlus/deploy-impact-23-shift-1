@@ -7,7 +7,7 @@ from .models import Candidate, Job, User, Company
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        exclude = ['password']
 
 ### CANDIDATE ###
 #get
@@ -15,6 +15,15 @@ class CandidateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Candidate
         fields = '__all__'
+
+class CandidateDetailSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Candidate
+        fields = '__all__'
+        extra_fields = ['user']
+        depth = 2
+
 #post
 class CandidateCreateSerializer(serializers.ModelSerializer):
     class Meta:
