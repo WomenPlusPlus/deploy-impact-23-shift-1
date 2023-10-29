@@ -72,7 +72,7 @@ export const signup = createAsyncThunk(
         username: username,
         password: secretid,
         email: email,
-        user_type: role,
+        type: role,
         name: name,
         phone_number: phone,
         // TODO: get from UI
@@ -120,7 +120,7 @@ export const authenticationSlice = createSlice({
           })
           .addCase(login.fulfilled, (state, action) => {
             state.status = AuthenticationStatus.Authenticated;
-            state.role = action.payload.user.user_type;
+            state.role = action.payload.user.type;
             state.loginType = LoginType.NormalLogin;
             state.username = action.payload.user.email;
             state.token = action.payload.token;            
