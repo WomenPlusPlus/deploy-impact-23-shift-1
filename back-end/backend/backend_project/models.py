@@ -113,6 +113,9 @@ class Job(models.Model):
 
 class Candidate(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    title = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    skills = models.TextField(blank=True, null=True)
     location = models.TextField(blank=True, null=True)
     relocation = models.BooleanField(blank=True, null=True)
     education = models.TextField(blank=True, null=True)
