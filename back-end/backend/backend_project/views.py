@@ -99,30 +99,6 @@ def signup(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-CANDIDATES_DICT = {
-    0: "I am a highly motivated software engineer with experience in full-stack development. Python, Java, Web Technologies. B.S. in Computer Science. Software Engineer at XYZ Inc., Intern at ABC Corporation.",
-    1: "Experienced data scientist with expertise in machine learning and data analysis. Machine Learning, Python, Data Analysis. M.S. in Data Science. Data Scientist at DEF Data Solutions, Research Assistant at University X.",
-    2: "I am a junior database architect with a strong foundation in database design and management. Database Design, SQL, Database Management. B.S. in Information Technology. Database Architect Intern at GHI Tech.",
-    3: "Aspiring machine learning engineer with a passion for artificial intelligence and deep learning. Deep Learning, Python, Artificial Intelligence. B.S. in Computer Engineering. Research Assistant at AI Lab."}
-
-JOBS_DICT = {0: 'Senior Data Scientist Big Software is seeking a Senior Data Scientist to lead our AI '
-                'initiatives. Machine Learning Data Analysis Python M.S. in Computer Science Ph.D. in Data Science',
-             1: 'Software Engineer Tech Innovators is looking for a Software Engineer to develop '
-                'innovative'
-                'software solutions Java Web Development Software Engineering B.S. in Computer Science M.S. in '
-                'Software'
-                'Engineering',
-             2: 'Data Solutions Database Architect Data Solutions is hiring a Database Architect to design and '
-                'manage our database systems Database Design SQL Database Management B.S. in Information Technology'
-             }
-
-JOBS_TITLE_DIC = {0: 'Senior Data Scientist',
-                  1: 'Software Engineer',
-                  2: 'Data Solutions'
-                  }
-
-
 def remove_stop_words_and_punctuation(text):
     # Lowercasing and tokenization by space
     words = word_tokenize(text.lower())
@@ -168,10 +144,15 @@ def matchingFunction(candidate_profile_text_raw, job_description_text_raw):
 @api_view(['POST'])
 def match_candidate_post(request):
     candidate_id = request.data.get('candidateid')
-    candidate_profile = CANDIDATES_DICT[candidate_id]   #TODO: fetch from db
+
+    candidate = Candidate.objects.select_related('user').only('user__description').get(user=candidate_id)
+    candidate_profile = f"{candidate.user.description} {candidate.education} {candidate.work_experience} {candidate.volunteer_experience} {candidate.courses}"
 
     matching_results = []
-    for job_id, job_description in JOBS_DICT.items():    #TODO: fetch from db
+    jobs = Job.objects.filter(is_published=True)
+    for job in jobs:
+        job_id = job.job_id
+        job_description = f"{job.title} {job.description}"
         # Calculate matching results for each job
         matching_score = matchingFunction(candidate_profile, job_description)
         matching_results.append({
@@ -179,7 +160,10 @@ def match_candidate_post(request):
             "matching_score": matching_score
         })
 
-    return Response(matching_results)
+    # Sort the list of dictionaries by the "matching_score" key
+    sorted_response = sorted(matching_results, key=lambda x: x["matching_score"], reverse=True)
+
+    return Response(sorted_response)
 
 
 # @api_view(['GET'])
@@ -226,18 +210,25 @@ def match_job_company(request):
 @api_view(['POST'])
 def match_job_candidate_post(request):
     job_id = request.data.get('jobid')
-    job_description = JOBS_DICT[job_id]   #TODO: fetch from db
+    job = Job.objects.get(job_id=job_id)
+    job_description = f"{job.title} {job.description}"
 
     matching_results = []
-    for candidate_id, candidate_profile in CANDIDATES_DICT.items():    #TODO: fetch from db
+    candidates = Candidate.objects.select_related('user').only('user__description')
+    for candidate in candidates:
+        candidate_id = candidate.user.id
+        candidate_profile = f"{candidate.user.description} {candidate.education} {candidate.work_experience} {candidate.volunteer_experience} {candidate.courses}"
         # Calculate matching results for each job
         matching_score = matchingFunction(candidate_profile, job_description)
         matching_results.append({
             "candidate_id": candidate_id,
             "matching_score": matching_score
         })
+        
+    # Sort the list of dictionaries by the "matching_score" key
+    sorted_response = sorted(matching_results, key=lambda x: x["matching_score"], reverse=True)
 
-    return Response(matching_results)
+    return Response(sorted_response)
 
 @api_view(['POST'])
 def login(request):
