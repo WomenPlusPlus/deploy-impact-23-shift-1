@@ -28,6 +28,32 @@ export const getJobs = createAsyncThunk(
 );
 
 
+export const updateJob = createAsyncThunk(
+  "job/put",
+  async ({newData}:{newData:any}) => {
+    console.log("update job", newData)
+    let result = await axios.put(`${apiUrl}/update_job/`, newData);
+    console.log("update job result", result)
+    if (result.status === 200) {      
+      return result.data;
+    } 
+  }
+);
+
+
+export const addJob = createAsyncThunk(
+  "job/post",
+  async ({newData}:{newData:any}) => {
+    console.log("add job", newData)
+    let result = await axios.post(`${apiUrl}/post_job/`, newData);
+    console.log("add job result", result)
+    if (result.status === 200) {      
+      return result.data;
+    } 
+  }
+);
+
+
 export const jobsSlice = createSlice({
     name: "jobsSlice",
     initialState: initialState,
@@ -48,7 +74,18 @@ export const jobsSlice = createSlice({
             console.log("getJobs failed", action.error);
             // TODO: error handling
           })
-
+          .addCase(updateJob.fulfilled, (state, action) => {
+              //TODO update the jobs list??
+          })
+          .addCase(updateJob.rejected, (state, action) => {
+            console.log("updateJob failed", action.error);
+          })
+          .addCase(addJob.fulfilled, (state, action) => {
+            //TODO update the jobs list??
+          })
+          .addCase(addJob.rejected, (state, action) => {
+            console.log("addJob failed", action.error);
+          })          
     },
 });
 
