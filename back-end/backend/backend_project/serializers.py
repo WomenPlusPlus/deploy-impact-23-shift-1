@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Candidate, Job, User
+from .models import Candidate, Job, User, Company
 
 
 ### USER ###
@@ -15,6 +15,24 @@ class CandidateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Candidate
         fields = '__all__'
+#post
+class CandidateCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Candidate
+        fields = '__all__'
+
+### COMPANY ###
+#get 
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = '__all__'
+
+#post
+class CompanyCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        exclude = ['company_id']
 
 ### JOB ###
 #get 

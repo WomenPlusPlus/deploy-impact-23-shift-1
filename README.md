@@ -2,7 +2,16 @@
 
 - create first user from supabase.com/dashboard in the authentication/users menu
 - send the signup request to backend with this data (for now you can use the test.rest - test case Mauro provided):
-{ "username": "email address of the user you created in supabase", "password": "User UID that you find in the supabase dashboard where you created the first user", "email": "email address of the user you created in supabase", "usertype": "admin" }
+{ 
+  "username": "<email address of the user you created in supabase>", 
+  "password": "<User UID that you find in the supabase dashboard where you created the first user>", "email": "<email address of the user you created in supabase>", 
+  "user_type": "admin"     
+  "name": "<name>",
+  "contactnumber": "<phone>",
+  "headline": "<description>",
+  "terms_and_conditions": true,
+  "privacy_policy": true
+ }
 - we need a better process for creating the first admin user!!!
 
 
@@ -24,6 +33,11 @@ I installed already the react MUI component library:
   - https://mui.com/material-ui/react-button-group/
 
 # backend
+to get the database set up:
+  python manage.py makemigrations
+  python manage.py migrate
+  python manage.py loaddata .\backend_project\fixtures\initial_data.json
+
 using docker:
   docker-compose up --build
 
@@ -34,8 +48,7 @@ without docker:
   pip install djangorestframework
   pip install django-cors-headers
   pip install django-environ
-  python manage.py makemigrations
-  python manage.py migrate
+
   python manage.py runserver 
   or
   python manage.py runserver 0.0.0.0:8000
