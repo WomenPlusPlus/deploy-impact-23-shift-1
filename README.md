@@ -45,9 +45,7 @@ without docker:
   copy example.env file as .env
   add the database info to .env file
 
-  pip install djangorestframework
-  pip install django-cors-headers
-  pip install django-environ
+  pip3 install .\requirements.txt
 
   python manage.py runserver 
   or
