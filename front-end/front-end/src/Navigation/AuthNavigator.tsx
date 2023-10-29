@@ -1,29 +1,39 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux/es/exports';
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { RootState } from '../Services/Store';
 import Link from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
-import { Invite } from "../Pages/Invite";
 import { Login } from "../Pages/Login";
-import { Welcome } from "../Pages/Welcome";
 import { SignUp } from "../Pages/SignUp";
+import { SignUpContinue } from "../Pages/SignUpContinue";
+import { PasswordReset } from '../Pages/PasswordReset';
 
 import { authentication } from "../Services/Authentication";
 import { AuthenticationStatus } from '../Services/AuthenticationSlice';
+import { SideBar } from './SideBar';
+import { authorization, RoutingItem } from "./Authorization";
+
+import './SideBar.css';
 
 function AuthNavigator() {
   const location = useLocation();
-//authentication.logOut();
 
-  const authenticationStatus:AuthenticationStatus = useSelector((state: RootState) => state.auth.status);
-  
+    //const authenticationStatus: AuthenticationStatus =  AuthenticationStatus.InviteeAuthenticated as AuthenticationStatus;
+    const authenticationStatus: AuthenticationStatus = useSelector(
+        (state: RootState) => state.auth.status
+    );   
+
+
+    console.log("stat", authenticationStatus)
   const pathName:string | null = location?.pathname?.split("/")[1]
   useEffect(() => {
     const accessToken:string | null = location?.hash?.split("&")[0]?.split("=")[1]
     const refreshToken:string | null = location?.hash?.split("&")[3]?.split("=")[1]
     if (accessToken && refreshToken && pathName && pathName === "signup") {
-      if(authenticationStatus === AuthenticationStatus.NotAuthenticated) {
+      if(authenticationStatus === AuthenticationStatus.NotAuthenticated ||
+        authenticationStatus === AuthenticationStatus.LoggedOut) {
         authentication.inviteeLogin(accessToken, refreshToken);
       }
       if(window.location.hash) {
@@ -34,30 +44,35 @@ function AuthNavigator() {
     }
   });
 
-  if(authenticationStatus === AuthenticationStatus.Pending ||
-    (pathName === "signup" && authenticationStatus === AuthenticationStatus.NotAuthenticated)) {
+  if(pathName === "passwordreset") {
+    return(<PasswordReset />);
+  } else if(authenticationStatus === AuthenticationStatus.Pending ||
+    (pathName === "signup" && (authenticationStatus === AuthenticationStatus.NotAuthenticated || authenticationStatus === AuthenticationStatus.LoggedOut))) {
     return <div>Processing...</div>
-  } else if (authenticationStatus === AuthenticationStatus.InviteeAuthenticated) {    
+  } else if (authenticationStatus === AuthenticationStatus.InviteeAuthenticated) {  
     return (
       <Routes>
-        <Route path="/*" element={<SignUp />} />
-        <Route path="signup/*" element={<SignUp />} />
+        <Route key="root" path="/*" element={<SignUp />} />
+        <Route key="signup" path="signup/*" element={<SignUp />} />
+        <Route key="signupcontinue" path="signupcontinue/*" element={<SignUpContinue />} />
       </Routes>
     );
-  } else if (authenticationStatus === AuthenticationStatus.AdminAuthenticated) {
+  } else if (authenticationStatus === AuthenticationStatus.Authenticated) {
     return (
-      <Routes>
-        <Route path="/*" element={<Invite />} />
-        <Route path="invite/*" element={<Invite />} />
-      </Routes>
-    );
-  } else if (authenticationStatus === AuthenticationStatus.CandidateAuthenticated) {
-    // TODO: improve the user type detection.. should there be different way to distinguish between roles
-    return (
-      <Routes>
-        <Route path="/*" element={<Welcome />} />
-        <Route path="welcome/*" element={<Welcome />} />
-      </Routes>
+      <Box
+          sx={{ display: 'flex' }}
+          bgcolor={'#FBFCFD'}
+          minHeight={'100%'}
+          padding={2}
+      >
+        <SideBar></SideBar>
+        <Routes>
+          <Route path="/*" element={authorization.getMyMainPage()} />
+          { authorization.getMyRoutes().map((route:RoutingItem) =>  (
+            <Route key={route.path} path={route.path+"/*"} element={route.page} />
+          ))}
+        </Routes>
+      </Box>
     );
   } else if (
     authenticationStatus === AuthenticationStatus.AccessTokenInvalid
@@ -85,6 +100,6 @@ function AuthNavigator() {
     return(<Login />);
   }  
 
-  return <div>Something unexpected happened</div>
+    return <div>Something unexpected happened</div>;
 }
 export default AuthNavigator;
