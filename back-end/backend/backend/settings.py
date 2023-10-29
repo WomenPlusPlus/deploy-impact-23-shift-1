@@ -31,7 +31,8 @@ SECRET_KEY = 'django-insecure-alf_s)m3d0ye96b9a_#t6k-uf45_kl-+43n!a=qn!#b9!dvdf7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['shift-backend-prod.fly.dev', 'shift-backend-staging.fly.dev', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['shift-backend-prod.fly.dev', 'shift-backend-staging.fly.dev', '127.0.0.1', 'localhost', '0.0.0.0']
+
 #ALLOWED_HOSTS=['*']
 #CORS_ORIGIN_ALLOW_ALL = True
 
@@ -50,10 +51,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'backend_project',
+    #'backend_project',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'backend_project.apps.BackendProjectConfig'
 ]
 
 MIDDLEWARE = [
@@ -151,3 +153,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+import nltk
+import os
+
+# Build the path to your nltk_data directory relative to BASE_DIR
+nltk_data_dir = os.path.join(BASE_DIR, 'nltk_data')
+
+# Set the NLTK data path
+nltk.data.path.append(nltk_data_dir)
+

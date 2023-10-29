@@ -124,6 +124,13 @@ Content-Type: application/json
 
 ######
 
+POST http://127.0.0.1:8000/match_job_candidate_post/
+Content-Type: application/json
+
+{ "jobid": 1 }
+
+######
+
 GET http://127.0.0.1:8000/match_job_company/
 Content-Type: application/json
 
