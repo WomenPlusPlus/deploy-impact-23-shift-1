@@ -45,7 +45,6 @@ export const Jobs = () => {
                             <TableCell>Title</TableCell>
                             <TableCell>Location</TableCell>
                             <TableCell>Status</TableCell>
-                            <TableCell>Candidates</TableCell>
                             <TableCell>Published on</TableCell>
                             <TableCell>Description</TableCell>
                             <TableCell></TableCell>
@@ -54,11 +53,10 @@ export const Jobs = () => {
                     <TableBody> 
                         {jobsList.map((job: any) => ( 
                             <TableRow key={job.jobid}> 
-                                <TableCell>{job.title} -- {job.jobid}</TableCell> 
+                                <TableCell>{job.title}</TableCell> 
                                 <TableCell>{job.location}</TableCell> 
-                                <TableCell>ADD TO DB</TableCell> 
-                                <TableCell>CREATE API CALL</TableCell> 
-                                <TableCell>ADD TO DB</TableCell> 
+                                <TableCell>{job.is_published ? "published" : "not published"}</TableCell> 
+                                <TableCell>{job.published_on ? new Date(job.published_on).toDateString() : ""}</TableCell> 
                                 <TableCell>{job.description}</TableCell> 
                                 <TableCell><Link to="/job" state={{ id: job.jobid }}><DriveFileRenameOutlineIcon/></Link></TableCell>
                             </TableRow> 
