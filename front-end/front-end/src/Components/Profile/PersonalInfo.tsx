@@ -115,23 +115,23 @@ export const PersonalInfo = ({ data }: { data: any }) => {
                 <Stack spacing={2}>
                     <MainInfoItem
                         title="Name"
-                        value={data.name}
-                        isVisible={data.isNameVisible}
+                        value={data?.user?.name}
+                        isVisible={true}
                     />
                     <MainInfoItem
                         title="Preffered Name"
-                        value={data.prefferedName}
-                        isVisible={data.isPrefferedNameVisible}
+                        value={data?.user?.preffered_name}
+                        isVisible={true}
                     />
                     <MainInfoItem
                         title="Email"
-                        value={data.email}
-                        isVisible={data.isEmailVisible}
+                        value={data?.user?.email}
+                        isVisible={true}
                     />
                     <MainInfoItem
                         title="Phone number"
-                        value={data.phoneNumber}
-                        isVisible={data.isPhoneNumberVisible}
+                        value={data?.user?.phone_number}
+                        isVisible={true}
                     />
                 </Stack>
             </SectionCard>
@@ -148,7 +148,7 @@ export const PersonalInfo = ({ data }: { data: any }) => {
                     <Button>Edit</Button>
                 </Stack>
                 <Typography variant="body2" gutterBottom>
-                    {data.summary}
+                    {data?.user?.description}
                 </Typography>
             </SectionCard>
             <SectionCard>
@@ -157,11 +157,11 @@ export const PersonalInfo = ({ data }: { data: any }) => {
                 </Typography>
                 <LegalSectionItem
                     title="Terms & conditions"
-                    isAccepted={data.termsAndConditions}
+                    isAccepted={data?.user?.terms_and_conditions}
                 />
                 <LegalSectionItem
                     title="Privacy policy"
-                    isAccepted={data.privacyPolicy}
+                    isAccepted={data?.user?.privacy_policy}
                 />
             </SectionCard>
         </>

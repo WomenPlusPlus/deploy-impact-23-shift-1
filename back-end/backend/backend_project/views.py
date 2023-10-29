@@ -27,7 +27,7 @@ def get_candidates(request):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def get_candidate_details(request):
     candidate_id = request.data.get('candidateid')
     candidate = Candidate.objects.select_related('user').get(user=candidate_id)
