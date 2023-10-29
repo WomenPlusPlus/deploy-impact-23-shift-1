@@ -7,6 +7,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
+
+from .models import Candidate_Expertise
 from .utils import *
 import json
 
@@ -146,7 +148,16 @@ def match_candidate_post(request):
     candidate_id = request.data.get('candidateid')
 
     candidate = Candidate.objects.select_related('user').only('user__description').get(user=candidate_id)
+
+    # Get the expertise names for the candidate
+    expertise_names = [ce.expertise.name for ce in Candidate_Expertise.objects.filter(candidate=candidate)]
+
+    # Build the candidate_profile string
     candidate_profile = f"{candidate.user.description} {candidate.education} {candidate.work_experience} {candidate.volunteer_experience} {candidate.courses}"
+
+    # Append the expertise names to the candidate_profile
+    if expertise_names:
+        candidate_profile = ' '.join(candidate_profile.split() + expertise_names)
 
     matching_results = []
     jobs = Job.objects.filter(is_published=True)
@@ -217,7 +228,17 @@ def match_job_candidate_post(request):
     candidates = Candidate.objects.select_related('user').only('user__description')
     for candidate in candidates:
         candidate_id = candidate.user.id
+
+        # Get the expertise names for the candidate
+        expertise_names = [ce.expertise.name for ce in Candidate_Expertise.objects.filter(candidate=candidate)]
+
+        # Build the candidate_profile string
         candidate_profile = f"{candidate.user.description} {candidate.education} {candidate.work_experience} {candidate.volunteer_experience} {candidate.courses}"
+
+        # Append the expertise names to the candidate_profile
+        if expertise_names:
+            candidate_profile = ' '.join(candidate_profile.split() + expertise_names)
+
         # Calculate matching results for each job
         matching_score = matchingFunction(candidate_profile, job_description)
         matching_results.append({
