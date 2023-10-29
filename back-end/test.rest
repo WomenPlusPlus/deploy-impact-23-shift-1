@@ -8,8 +8,8 @@ Content-Type: application/json
     "email": "<email>",
     "name": "Admin Person",
     "phone_number": "123-456-7890",
-    "user_type": "admin", 
-    "headline": "I am the admin who controls this site",
+    "type": "admin",
+    "description": "I am the admin who controls this site",
     "terms_and_conditions": true,
     "privacy_policy": true
 }
