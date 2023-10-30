@@ -16,7 +16,7 @@ to some other frameworks that feel more straightforward/troubless to use.
 Front end data security is in pretty good shape thanks to supabase authentication and 
 the sidebar/routing we created that allowes each role user access to only the pages 
 they need. Sidebar is easy to configure for more menu items without having to write 
-more actual code.
+more actual code. One thing to be addressed there is the strong password checking.
 
 Backend data security is almost nonexistent and needs to be addressed asap. We lost 
 the authentication token, when our backend lead rewrote the code from sqlite to 
