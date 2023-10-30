@@ -42,3 +42,6 @@ The matching process uses real data from the database and has it's own api endpo
 in the backend. We did not have time to implement the storing of the matching results,
 which we wanted to do in order to retrain the model in the future with actual data
 for improved accuracy.
+
+The invitation email templates can be modified in supabase dashboard under 
+Authentication / Email Templates
