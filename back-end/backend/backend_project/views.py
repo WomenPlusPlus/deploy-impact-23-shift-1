@@ -6,11 +6,11 @@ import gensim.downloader as api
 # Save the model locally
 model_path = "word2vec-google-news-300.gensim"
 from nltk import word_tokenize
-#import nltk;
+import nltk;
 from nltk.corpus import stopwords
-#nltk.download('punkt')
+nltk.download('punkt')
 # Download the "stopwords" corpus
-#nltk.download('stopwords')
+nltk.download('stopwords')
 from sklearn.metrics.pairwise import cosine_similarity
 from rest_framework import status
 from rest_framework.response import Response
@@ -184,9 +184,10 @@ def matchingFunction(candidate_profile_text_raw, job_description_text_raw):
 @api_view(['POST'])
 def match_candidate_post(request):
     candidate_id = request.data.get('candidateid')
-
+    print(candidate_id)
     candidate = Candidate.objects.select_related('user').only('user__description').get(user=candidate_id)
 
+    print(candidate)
     # Get the expertise names for the candidate
     expertise_names = [ce.expertise.name for ce in Candidate_Expertise.objects.filter(candidate=candidate)]
 
