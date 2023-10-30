@@ -47,5 +47,15 @@ Matching process uses either word2vec-google-news-300.gensim or
 glove-wiki-gigaword-100.gensim model to create the matching scores between jobs
 and candidates.
 
+Once the first admin user is created through the process described in the readme file
+all the other users can be invited to the platform by the invite page in the ui.
+They can sign up for the platform using the link they receive in the invite email
+Each role has slightly different functionalities (limited so far):
+Admin can invite.
+Association can also invite.
+Company user can view Jobs and edit / (add new ones).
+Candidate has the profile page with limited functionality and very basic match me -
+functionality under the MatchMe -button.
+
 The invitation email templates can be modified in supabase dashboard under 
 Authentication / Email Templates
