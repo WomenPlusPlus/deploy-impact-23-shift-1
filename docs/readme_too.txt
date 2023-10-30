@@ -43,5 +43,9 @@ in the backend. We did not have time to implement the storing of the matching re
 which we wanted to do in order to retrain the model in the future with actual data
 for improved accuracy.
 
+Matching process uses either word2vec-google-news-300.gensim or 
+glove-wiki-gigaword-100.gensim model to create the matching scores between jobs
+and candidates.
+
 The invitation email templates can be modified in supabase dashboard under 
 Authentication / Email Templates
