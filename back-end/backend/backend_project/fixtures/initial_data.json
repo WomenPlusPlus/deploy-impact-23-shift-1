@@ -1,0 +1,340 @@
+[
+    {
+        "model": "backend_project.job_property",
+        "pk": 1,
+        "fields": {
+            "type": "industry",
+            "name": "Tech"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 2,
+        "fields": {
+            "type": "industry",
+            "name": "Medical"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 3,
+        "fields": {
+            "type": "industry",
+            "name": "Sales"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 4,
+        "fields": {
+            "type": "industry",
+            "name": "Healthcare"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 5,
+        "fields": {
+            "type": "industry",
+            "name": "Science"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 6,
+        "fields": {
+            "type": "industry",
+            "name": "Financial Services"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 7,
+        "fields": {
+            "type": "industry",
+            "name": "Telecommunication"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 8,
+        "fields": {
+            "type": "industry",
+            "name": "Software"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 9,
+        "fields": {
+            "type": "industry",
+            "name": "Insurance"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 10,
+        "fields": {
+            "type": "industry",
+            "name": "Media"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 1,
+        "fields": {
+            "name": "UX Design"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 2,
+        "fields": {
+            "name": "UX Research"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 3,
+        "fields": {
+            "name": "Tech"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 4,
+        "fields": {
+            "name": "Banking"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 5,
+        "fields": {
+            "name": "Crypto-currency"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 6,
+        "fields": {
+            "name": "Machine Learning"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 7,
+        "fields": {
+            "name": "Software Engineering"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 8,
+        "fields": {
+            "name": "Artificial Intelligence"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 9,
+        "fields": {
+            "name": "Accounting"
+        }
+    },
+    {
+        "model": "backend_project.expertise",
+        "pk": 10,
+        "fields": {
+            "name": "Marketing"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 1,
+        "fields": {
+            "type": "value",
+            "name": "Diversity"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 2,
+        "fields": {
+            "type": "value",
+            "name": "Collaboration"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 3,
+        "fields": {
+            "type": "value",
+            "name": "Ethics"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 4,
+        "fields": {
+            "type": "value",
+            "name": "Commitment"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 5,
+        "fields": {
+            "type": "value",
+            "name": "Compassion"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 6,
+        "fields": {
+            "type": "value",
+            "name": "Innovative"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 7,
+        "fields": {
+            "type": "value",
+            "name": "Excellence"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 8,
+        "fields": {
+            "type": "value",
+            "name": "Equality"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 9,
+        "fields": {
+            "type": "value",
+            "name": "Honesty"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 10,
+        "fields": {
+            "type": "value",
+            "name": "Sustainability"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 11,
+        "fields": {
+            "type": "value",
+            "name": "Customer Satisfaction"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 12,
+        "fields": {
+            "type": "value",
+            "name": "Accessibility"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 13,
+        "fields": {
+            "type": "value",
+            "name": "Integrity"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 14,
+        "fields": {
+            "type": "value",
+            "name": "Fairness"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 15,
+        "fields": {
+            "type": "value",
+            "name": "Selflessness"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 16,
+        "fields": {
+            "type": "value",
+            "name": "Respect"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 1,
+        "fields": {
+            "type": "location",
+            "name": "Remote"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 2,
+        "fields": {
+            "type": "location",
+            "name": "Hybrid"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 3,
+        "fields": {
+            "type": "location",
+            "name": "On-site"
+        }
+    },
+    {
+        "model": "backend_project.job_property",
+        "pk": 4,
+        "fields": {
+            "type": "location",
+            "name": "Other"
+        }
+    },
+    {
+        "model": "backend_project.language",
+        "pk": 1,
+        "fields": {
+            "name": "English"
+        }
+    },
+    {
+        "model": "backend_project.language",
+        "pk": 2,
+        "fields": {
+            "name": "German"
+        }
+    },
+    {
+        "model": "backend_project.language",
+        "pk": 3,
+        "fields": {
+            "name": "French"
+        }
+    },
+    {
+        "model": "backend_project.language",
+        "pk": 4,
+        "fields": {
+            "name": "Italian"
+        }
+    }
+]

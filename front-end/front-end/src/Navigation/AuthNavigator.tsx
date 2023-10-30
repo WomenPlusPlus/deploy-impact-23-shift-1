@@ -1,25 +1,41 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux/es/exports';
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { RootState } from '../Services/Store';
+import Link from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
-import { Invite } from "../Pages/Invite";
 import { Login } from "../Pages/Login";
-import { Welcome } from "../Pages/Welcome";
+import { SignUp } from "../Pages/SignUp";
+import { SignUpContinue } from "../Pages/SignUpContinue";
+import { PasswordReset } from '../Pages/PasswordReset';
 
 import { authentication } from "../Services/Authentication";
 import { AuthenticationStatus } from '../Services/AuthenticationSlice';
+import { SideBar } from './SideBar';
+import { authorization, RoutingItem } from "./Authorization";
+
+import './SideBar.css';
 
 function AuthNavigator() {
   const location = useLocation();
 
-  const authenticationStatus = useSelector((state: RootState) => state.auth.status);
+    //const authenticationStatus: AuthenticationStatus =  AuthenticationStatus.InviteeAuthenticated as AuthenticationStatus;
+    const authenticationStatus: AuthenticationStatus = useSelector(
+        (state: RootState) => state.auth.status
+    );   
 
+
+    console.log("stat", authenticationStatus)
+  const pathName:string | null = location?.pathname?.split("/")[1]
   useEffect(() => {
-    const accessToken = location?.hash?.split("&")[0]?.split("=")[1]
-    const refreshToken = location?.hash?.split("&")[3]?.split("=")[1]
-    if (accessToken && refreshToken) {
-      authentication.welcomeUser(accessToken, refreshToken);
+    const accessToken:string | null = location?.hash?.split("&")[0]?.split("=")[1]
+    const refreshToken:string | null = location?.hash?.split("&")[3]?.split("=")[1]
+    if (accessToken && refreshToken && pathName && pathName === "signup") {
+      if(authenticationStatus === AuthenticationStatus.NotAuthenticated ||
+        authenticationStatus === AuthenticationStatus.LoggedOut) {
+        authentication.inviteeLogin(accessToken, refreshToken);
+      }
       if(window.location.hash) {
         window.history.replaceState("", document.title, window.location.pathname);
       }
@@ -28,19 +44,62 @@ function AuthNavigator() {
     }
   });
 
-  if (authenticationStatus === AuthenticationStatus.Authenticated) {
-    // TODO: different routes for different types of users.. Invite page only accessible to admin/association
-    // Welcome to candidate/customer  etc ?
+  if(pathName === "passwordreset") {
+    return(<PasswordReset />);
+  } else if(authenticationStatus === AuthenticationStatus.Pending ||
+    (pathName === "signup" && (authenticationStatus === AuthenticationStatus.NotAuthenticated || authenticationStatus === AuthenticationStatus.LoggedOut))) {
+    return <div>Processing...</div>
+  } else if (authenticationStatus === AuthenticationStatus.InviteeAuthenticated) {  
     return (
       <Routes>
-        <Route path="invite/*" element={<Invite />} />
-        <Route path="welcome/*" element={<Welcome />} />
+        <Route key="root" path="/*" element={<SignUp />} />
+        <Route key="signup" path="signup/*" element={<SignUp />} />
+        <Route key="signupcontinue" path="signupcontinue/*" element={<SignUpContinue />} />
       </Routes>
+    );
+  } else if (authenticationStatus === AuthenticationStatus.Authenticated) {
+    return (
+      <Box
+          sx={{ display: 'flex' }}
+          bgcolor={'#FBFCFD'}
+          minHeight={'100%'}
+          padding={2}
+      >
+        <SideBar></SideBar>
+        <Routes>
+          <Route path="/*" element={authorization.getMyMainPage()} />
+          { authorization.getMyRoutes().map((route:RoutingItem) =>  (
+            <Route key={route.path} path={route.path+"/*"} element={route.page} />
+          ))}
+        </Routes>
+      </Box>
     );
   } else if (
     authenticationStatus === AuthenticationStatus.AccessTokenInvalid
   ) {
     return <div>Access token invalid ... TODO</div>;
-  } else return <Login />;
+  } else if (
+    authenticationStatus === AuthenticationStatus.SignupFailed
+  ) {
+    //TODO: change message when testing complete:
+    return <div>Signup failed .. you probably were already registered to database (change this message when testing complete)</div>;
+  } else if (
+    authenticationStatus === AuthenticationStatus.LoginInvalid
+  ) {
+    return <div>
+      Login failed ... TODO
+      <Link href="#"
+        onClick={() => {authentication.logOut()}}>
+          To login page.
+      </Link>
+    </div>;
+  } else if (
+    authenticationStatus === AuthenticationStatus.NotAuthenticated ||
+    authenticationStatus === AuthenticationStatus.LoggedOut
+  ) {
+    return(<Login />);
+  }  
+
+    return <div>Something unexpected happened</div>;
 }
 export default AuthNavigator;

@@ -1,7 +1,7 @@
 import { SupabaseClient, createClient } from '@supabase/supabase-js'
 
 import { store } from "./Store";
-import { login, inviteeLogin, inviteeLoginFail, logout } from './AuthenticationSlice';
+import { login, inviteeLogin, inviteeLoginFail, logout, signup } from './AuthenticationSlice';
 
 class Authentication {
     appUrl:string = process.env.REACT_APP_APP_URL ? process.env.REACT_APP_APP_URL : "";
@@ -19,21 +19,21 @@ class Authentication {
         this.adminSupabaseClient = createClient(this.supabaseUrl, this.supabaseServiceKey);
     }
 
-    async inviteUser(email:string) {
-        
-        /* do we need user metadata?
-        const userData = {
-            email: email,
-            // TODO: will this be used ??
-            user_metadata: { type: 'candidate' }
-        }
-        */
-
-        // TODO: handling of sending invitation twice to same person
+    async inviteUser(email:string, role:string) {
+        // TODO: handling of sending invitation twice to same person  --- needs the invitee list to exist and be fetchable in backend
         if(this.adminSupabaseClient) {
+            const userData = {
+                email: email,
+                // TODO: will this be used in the future or shall we store locally?
+                user_metadata: { type: role }
+            }
+
             const { data: user, error } = await this.adminSupabaseClient.auth.admin
                         .inviteUserByEmail(email, 
-                            { redirectTo: this.appUrl+"/welcome#" })
+                            { 
+                                redirectTo: this.appUrl+"/signup#",
+                                data: userData,
+                            });
             if(error) {
                 console.log("error", error)
                 // TODO: error handling
@@ -47,7 +47,7 @@ class Authentication {
         }
     }
 
-    async welcomeUser(accessToken:string | null, refreshToken:string | null) {
+    async inviteeLogin(accessToken:string | null, refreshToken:string | null) {
         if(this.supabaseClient && accessToken && refreshToken) {
             // Workaround to make invite tokens work:
             // https://github.com/supabase/auth-helpers/issues/567
@@ -62,7 +62,9 @@ class Authentication {
                 store.dispatch(inviteeLoginFail());  
             } else {   
                 store.dispatch(inviteeLogin());  
-                // send data to backend that user has signed up.. email, userid            
+                // TODO: modify inviteeLogin to be a backend api call
+                // send data to backend that user has signed up.. email, userid, date, type
+                // in the future the association will want to see a list of who has been invited for what, when and have they signed up
             }
         }
     }
@@ -70,7 +72,31 @@ class Authentication {
     async loginUser() {
         const user = await this.getUser();
         if(user) {
-            store.dispatch(login());  
+            store.dispatch(login({email: user.email, secretid: user.id}));  
+        }
+    }
+
+    async signupInvitee(password:string, email:string, name:string, phone:string) {
+        const user = await this.getUser();
+        if(user) {
+            // TODO: improve error handling
+            await this.supabaseClient.auth.updateUser({ password: password })
+            store.dispatch(signup({
+                username: user.email, 
+                secretid: user.id, 
+                role: user.user_metadata.user_metadata.type,
+                email: email,
+                name: name,
+                phone: phone
+            }));  
+        }
+    }
+
+    async passwordReset(password:string) {
+        const user = await this.getUser();
+        if(user) {
+            await this.supabaseClient.auth.updateUser({ password: password })
+            store.dispatch(login({email: user.email, secretid: user.id}));  
         }
     }
 
@@ -84,6 +110,10 @@ class Authentication {
             return user;
         } 
         return null;
+    }
+
+    getMyRole() {
+        return store.getState().auth.role;
     }
 
     async getSession() {

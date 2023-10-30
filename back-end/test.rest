@@ -1,39 +1,146 @@
-#####################################
-######### CANDIDATE #################
-#####################################
-GET http://127.0.0.1:8000/get_candidates 
+#admin user creationg:
+POST http://127.0.0.1:8000/127.0.0.1:8000/signup/
 Content-Type: application/json
-Authorization: token 66ba7733cb404465724d39ec4ae0dbc8714ef42e
 
-#####################################
-######### ASSOCIATION ###############
-#####################################
+{
+    "username": "<supabase username>",
+    "password": "<supabase id>",
+    "email": "<email>",
+    "name": "Admin Person",
+    "phone_number": "123-456-7890",
+    "type": "admin",
+    "description": "I am the admin who controls this site",
+    "terms_and_conditions": true,
+    "privacy_policy": true
+}
 
-#####################################
-######### COMPANY ###################
-#####################################
 
+#########
 
-
-#####################################
-######### LOG IN // SIGN UP #########
-#####################################
-
-# log in
 POST http://127.0.0.1:8000/signup/
 Content-Type: application/json
-{ "username": "adam", "password": "Pass1234!", "email": "adam@mail.com" }
 
-# sign up
+{
+    "username": "john_doe",
+    "password": "secure_password",
+    "email": "john.doe@example.com",
+    "name": "John Doe",
+    "phone_number": "123-456-7890",
+    "user_type": "candidate",
+    "terms_and_conditions": true,
+    "privacy_policy": true
+}
+}
+
+# { "username": "adam", "password": "Pass1234!", "email": "adam@mail.com" }
+
+
+##########
+
 POST http://127.0.0.1:8000/login/
 Content-Type: application/json
-{ "username": "adam", "password": "Pass1234!" }
 
-#####################################
-######### TEST ######################
-#####################################
+{ "username": "testadmin@test.com", "password": "85d756d1-70e3-4d57-b742-da27c7ec3357" }
 
-# test token
-GET http://127.0.0.1:8000/test_token 
+######
+
+# GET http://127.0.0.1:8000/test_token 
+# Content-Type: application/json
+# Authorization: token 66ba7733cb404465724d39ec4ae0dbc8714ef42e
+
+
+
+#####
+
+POST http://127.0.0.1:8000/post_job/
 Content-Type: application/json
-Authorization: token 66ba7733cb404465724d39ec4ae0dbc8714ef42e
+
+{
+    "company_id": 1,
+    "title": "Exciting New Job",
+    "description": "Join our team for an exciting new opportunity!",
+    "jobtype": "Contract",
+    "category": "Sales",
+    "location": "Chicago",
+    "salaryrange": "70,000 - 90,000",
+    "appplicationdeadline": "2024-03-20",
+    
+    "is_published": true
+}
+
+
+######
+
+GET http://127.0.0.1:8000/get_users/
+Content-Type: application/json
+
+
+######
+
+DELETE http://127.0.0.1:8000/delete_users/
+Content-Type: application/json
+
+{ "username": "testadmin@test.com" }
+
+######
+
+DELETE http://127.0.0.1:8000/delete_user/
+Content-Type: application/json
+
+{ "username": "testadmin@test.com" }
+
+######
+
+GET http://127.0.0.1:8000/get_candidates/
+Content-Type: application/json
+
+######
+
+GET http://127.0.0.1:8000/get_candidate_details/
+Content-Type: application/json
+
+{ "candidateid": 2 }
+
+######
+
+GET http://127.0.0.1:8000/get_companies/
+Content-Type: application/json
+
+######################
+
+GET http://127.0.0.1:8000/get_jobs/
+Content-Type: application/json
+
+###########
+
+GET http://127.0.0.1:8000/match_making_algorithm/
+Content-Type: application/json
+
+######
+
+GET http://127.0.0.1:8000/match_candidate/?candidateid=1
+Content-Type: application/json
+
+{ "candidateid": 1 }
+
+######
+
+
+POST http://127.0.0.1:8000/match_candidate_post/
+Content-Type: application/json
+
+{ "candidateid": 1 }
+
+######
+
+POST http://127.0.0.1:8000/match_job_candidate_post/
+Content-Type: application/json
+
+{ "jobid": 1 }
+
+######
+
+GET http://127.0.0.1:8000/match_job_company/
+Content-Type: application/json
+
+{ "jobid": 1 }

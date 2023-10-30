@@ -1,0 +1,224 @@
+
+
+
+GET http://127.0.0.1:8000/get_companies/
+Content-Type: application/json
+
+
+######################
+
+GET http://127.0.0.1:8000/get_jobs/
+Content-Type: application/json
+
+
+######################
+# whilst creating test data check using the get_companies 
+# which is the company_id of it and put it in the company_field field in the job 
+# so they match
+
+
+POST http://127.0.0.1:8000/post_company/
+Content-Type: application/json
+
+{
+    "name": "Big Software"
+}
+
+######################
+
+POST http://127.0.0.1:8000/post_job/
+Content-Type: application/json
+
+{
+    "company_id": 1,
+    "title": "Senior Data Scientist",
+    "description": "Big Software is seeking a Senior Data Scientist to lead our AI initiatives. Machine Learning Data Analysis Python M.S. in Computer Science Ph.D. in Data Science",
+
+    "is_published": true
+}
+
+    #"worklocation": [1],
+    #"language": [1, 2],
+    #"expertise": [3],
+
+
+######################
+
+POST http://127.0.0.1:8000/post_company/
+Content-Type: application/json
+
+{
+    "name": "Tech Innovators"
+}
+
+
+######################
+
+POST http://127.0.0.1:8000/post_job/
+Content-Type: application/json
+
+{
+    "company_id": 2,
+    "title": "Software Engineer",
+    "description": "Tech Innovators is looking for a Software Engineer to develop innovative software solutions Java Web Development Software Engineering B.S. in Computer Science M.S. in Software Engineering",
+    "is_published": true
+}
+
+
+######################
+
+POST http://127.0.0.1:8000/post_company/
+Content-Type: application/json
+
+{
+    "name": "Data Solutions"
+}
+
+
+
+######################
+
+POST http://127.0.0.1:8000/post_job/
+Content-Type: application/json
+
+{
+    "company_id": 3,
+    "title": "Data Solutions Database Architect",
+    "description": "Data Solutions is hiring a Database Architect to design and manage our database systems Database Design SQL Database Management B.S. in Information Technology",
+    "is_published": true
+}
+
+
+
+
+
+######
+
+GET http://127.0.0.1:8000/get_users/
+Content-Type: application/json
+
+
+######
+
+GET http://127.0.0.1:8000/get_candidates/
+Content-Type: application/json
+
+######################
+# whilst creating test data check using the get_users 
+# which is the user_id of it and put it in the user field in the candidate profile
+# so they match
+
+
+POST http://127.0.0.1:8000/signup/
+Content-Type: application/json
+
+{
+    "username": "johndoe@gmail.com",
+    "password": "doepass",
+    "email": "johndoe@gmail.com",
+    "name": "John Doe",
+    "user_type": "candidate",
+    "terms_and_conditions": true,
+    "privacy_policy": true
+}
+
+######################
+
+POST http://127.0.0.1:8000/post_candidate_profile/
+Content-Type: application/json
+
+{
+    "user": 1,
+    "title": "software engineer",
+    "description": "I am a highly motivated software engineer with experience in full-stack development.",
+    "skills": "Python, Java, Web Technologies",
+    "education": "B.S. in Computer Science",
+    "work_experience": "Software Engineer at XYZ Inc., Intern at ABC Corporation"
+}
+
+
+######################
+
+POST http://127.0.0.1:8000/signup/
+Content-Type: application/json
+
+{
+    "username": "janedoe@gmail.com",
+    "password": "janepass",
+    "email": "janedoe@gmail.com",
+    "name": "Jane Doe",
+    "user_type": "candidate",
+    "terms_and_conditions": true,
+    "privacy_policy": true
+}
+
+######################
+
+POST http://127.0.0.1:8000/post_candidate_profile/
+Content-Type: application/json
+
+{
+    "user": 2,
+    "title": "Data Scientist",
+    "description": "Experienced data scientist with expertise in machine learning and data analysis.",    
+    "skills": "Machine Learning, Python, Data Analysis",
+    "education": "M.S. in Data Science",
+    "work_experience": "Data Scientist at DEF Data Solutions, Research Assistant at University X."
+}
+######################
+
+POST http://127.0.0.1:8000/signup/
+Content-Type: application/json
+
+{
+    "username": "haskeldoe@gmail.com",
+    "password": "haskpass",
+    "email": "haskeldoe@gmail.com",
+    "name": "Haskel Doe",
+    "user_type": "candidate",
+    "terms_and_conditions": true,
+    "privacy_policy": true
+}
+
+######################
+
+POST http://127.0.0.1:8000/post_candidate_profile/
+Content-Type: application/json
+
+{
+    "user": 3,
+    "title": "Junior Database Architect",
+    "description": "I am a junior database architect with a strong foundation in database design and management.",  
+    "skills": "Database Design, SQL, Database Management.",
+    "education": "B.S. in Information Technology. ",
+    "work_experience": "Database Architect Intern at GHI Tech."
+}
+
+######################
+
+POST http://127.0.0.1:8000/signup/
+Content-Type: application/json
+
+{
+    "username": "esterdoe@gmail.com",
+    "password": "esterpass",
+    "email": "esterdoe@gmail.com",
+    "name": "Ester Doe",
+    "user_type": "candidate",
+    "terms_and_conditions": true,
+    "privacy_policy": true
+}
+
+######################
+
+POST http://127.0.0.1:8000/post_candidate_profile/
+Content-Type: application/json
+
+{
+    "user": 4,
+    "title": "Machine Learning Engineer",
+    "description": "Aspiring machine learning engineer with a passion for artificial intelligence and deep learning.",  
+    "skills": "Deep Learning, Python, Artificial Intelligence.",
+    "education": "B.S. in Computer Engineering.",
+    "work_experience": "Research Assistant at AI Lab."
+}
