@@ -113,6 +113,7 @@ class Company(models.Model):
 class Job(models.Model):
     job_id = models.BigAutoField(primary_key=True)
     is_published = models.BooleanField()
+    published_on = models.DateTimeField(blank=True, null=True)
     company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
     title = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)

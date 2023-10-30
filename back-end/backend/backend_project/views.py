@@ -1,7 +1,16 @@
 import string
 import numpy as np
+import gensim.downloader as api
+# Load the GloVe model
+#glove_model = api.load("word2vec-google-news-300")
+# Save the model locally
+model_path = "word2vec-google-news-300.gensim"
 from nltk import word_tokenize
+#import nltk;
 from nltk.corpus import stopwords
+#nltk.download('punkt')
+# Download the "stopwords" corpus
+#nltk.download('stopwords')
 from sklearn.metrics.pairwise import cosine_similarity
 from rest_framework import status
 from rest_framework.response import Response
@@ -11,6 +20,7 @@ from rest_framework.decorators import api_view
 from .models import Candidate_Expertise
 from .utils import *
 import json
+from rest_framework import generics
 
 
 @api_view(['GET'])
@@ -40,6 +50,26 @@ def get_jobs(request):
     jobs = Job.objects.all()
     serializer = JobSerializer(jobs, many=True)
     return Response(serializer.data)
+
+@api_view(['PUT'])
+def update_job(request):
+    job = Job.objects.get(job_id=request.data["job_id"])
+    if job:
+        if "title" in request.data:
+            job.title = request.data["title"]
+            job.save(update_fields=["title"]) 
+        if "description" in request.data:
+            job.description = request.data["description"]
+            job.save(update_fields=["description"]) 
+        if "is_published" in request.data:
+            job.is_published = request.data["is_published"]
+            job.save(update_fields=["is_published"]) 
+        if "published_on" in request.data:
+            job.published_on = request.data["published_on"]
+            job.save(update_fields=["published_on"]) 
+        return Response("ok")
+    return Response("job not found", status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['POST'])
