@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '../../UI/Button';
 import LogoXS from '../assets/MM_logo_xs.png';
 import Properties from './shared/Properties';
+import { Link } from 'react-router-dom';
 
 export const JobInterests = ({ data }: { data: any }) => {
     return (
@@ -39,10 +40,17 @@ export const JobInterests = ({ data }: { data: any }) => {
                         Let us work for you.
                     </Typography>
                 </Box>
-                <Button onClick={() => {}} sx={{ ml: 1 }}>
-                    <img src={LogoXS} alt="" loading="lazy" width="35px" />{' '}
-                    <Typography ml={1}>Match me</Typography>
-                </Button>
+                <Link
+                    to="/matchme"
+                    state={{
+                        candidateId: data?.user?.id,
+                    }}
+                >
+                    <Button onClick={() => {}} sx={{ ml: 1 }}>
+                        <img src={LogoXS} alt="" loading="lazy" width="35px" />{' '}
+                        <Typography ml={1}>Match me</Typography>
+                    </Button>
+                </Link>
             </Stack>
 
             <Box>
@@ -50,7 +58,9 @@ export const JobInterests = ({ data }: { data: any }) => {
                     {'Industry'}
                 </Typography>
                 <Properties
-                    properties={data?.jobInterests?.industry}
+                    properties={data?.desired_job_roperties?.filter(
+                        (p: any) => p.type === 'industry'
+                    )}
                     onAddProperty={() => {}}
                     addButtonLabel="Add industry"
                 />
@@ -60,7 +70,9 @@ export const JobInterests = ({ data }: { data: any }) => {
                     {'Values'}
                 </Typography>
                 <Properties
-                    properties={data?.jobInterests?.values}
+                    properties={data?.desired_job_roperties?.filter(
+                        (p: any) => p.type === 'value'
+                    )}
                     onAddProperty={() => {}}
                     addButtonLabel="Add value"
                 />
@@ -70,7 +82,9 @@ export const JobInterests = ({ data }: { data: any }) => {
                     {'Work type'}
                 </Typography>
                 <Properties
-                    properties={data?.jobInterests?.workType}
+                    properties={data?.desired_job_roperties?.filter(
+                        (p: any) => p.type === 'location'
+                    )}
                     onAddProperty={() => {}}
                     addButtonLabel="Add work type"
                 />
@@ -80,7 +94,9 @@ export const JobInterests = ({ data }: { data: any }) => {
                     {'Size'}
                 </Typography>
                 <Properties
-                    properties={data?.jobInterests?.companySize}
+                    properties={data?.desired_job_roperties?.filter(
+                        (p: any) => p.type === 'size'
+                    )}
                     onAddProperty={() => {}}
                     addButtonLabel="Add company size"
                 />
@@ -90,7 +106,9 @@ export const JobInterests = ({ data }: { data: any }) => {
                     {'Benefits'}
                 </Typography>
                 <Properties
-                    properties={data?.jobInterests?.benefits}
+                    properties={data?.desired_job_roperties?.filter(
+                        (p: any) => p.type === 'benefit'
+                    )}
                     onAddProperty={() => {}}
                     addButtonLabel="Add benefits"
                 />
@@ -100,7 +118,9 @@ export const JobInterests = ({ data }: { data: any }) => {
                     {'Notice period'}
                 </Typography>
                 <Properties
-                    properties={data?.jobInterests?.noticePeriod}
+                    properties={data?.desired_job_roperties?.filter(
+                        (p: any) => p.type === 'notice_period'
+                    )}
                     onAddProperty={() => {}}
                     addButtonLabel="Add notice period"
                 />
@@ -110,7 +130,9 @@ export const JobInterests = ({ data }: { data: any }) => {
                     {'Top 3 references (companies, humans, books, etc.)'}
                 </Typography>
                 <Properties
-                    properties={data?.jobInterests?.references}
+                    properties={data?.desired_job_roperties?.filter(
+                        (p: any) => p.type === 'reference'
+                    )}
                     onAddProperty={() => {}}
                     addButtonLabel="Add references"
                 />

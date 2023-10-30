@@ -27,7 +27,7 @@ export const Experience = ({ data }: { data: any }) => {
                     {'Expertise in'}
                 </Typography>
                 <Properties
-                    properties={data?.expertise}
+                    properties={data?.expertises}
                     onAddProperty={() => {}}
                     addButtonLabel="Add expertise"
                 />
