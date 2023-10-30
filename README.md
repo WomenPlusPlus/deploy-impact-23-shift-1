@@ -4,7 +4,8 @@
 -   send the signup request to backend with this data (for now you can use the test.rest - test case Mauro provided):
     {
     "username": "<email address of the user you created in supabase>",
-    "password": "<User UID that you find in the supabase dashboard where you created the first user>", "email": "<email address of the user you created in supabase>",
+    "password": "<User UID that you find in the supabase dashboard where you created the first user>", 
+    "email": "<email address of the user you created in supabase>",
     "type": "admin",
     "name": "<name>",
     "contactnumber": "<phone>",
@@ -13,6 +14,9 @@
     "privacy_policy": true
     }
 -   we need a better process for creating the first admin user!!!
+
+If you wish to try it out with the test admin user and jobs/candidate data we have created in our supabase project, feel free to contact paivi.kero@gmail.com
+and we can invite you to project and provide the necessary env variables for the supabase and database. Or in case you need any assistance setting up your project.
 
 using docker:
 
@@ -28,11 +32,6 @@ without docker:
     -   api url for the backend, for dev again surprisingly: http://localhost:8000
 -   npm install
 -   npm start
-
-I installed already the react MUI component library:
-
--   https://mui.com/material-ui/getting-started/templates/
--   https://mui.com/material-ui/react-button-group/
 
 # backend
 
