@@ -20,8 +20,8 @@ def authenticate_user(request, username, password):
 @lru_cache(maxsize=None)  # Cache with unlimited size
 def load_word2vec_model():
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    model_relative_path = 'downloaded_data/glove-wiki-gigaword-100.gensim'  # 160 MB
-    # model_relative_path = 'downloaded_data/word2vec-google-news-300.gensim' # 3.4 GB
+    #model_relative_path = 'downloaded_data/glove-wiki-gigaword-100.gensim'  # 160 MB
+    model_relative_path = 'downloaded_data/word2vec-google-news-300.gensim' # 3.4 GB
     model_path = os.path.join(project_root, model_relative_path)
 
     # Load the Word2Vec model
