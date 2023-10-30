@@ -24,9 +24,9 @@ export enum LoginType {
 export enum Role {
   Non = "unknown",
   Admin = "admin",
-  Association = "assosication",
+  Association = "assosication_member",
   Candidate = "candidate",
-  Company = "company",
+  Company = "company_employee",
 }
 
 export interface InitialState {
