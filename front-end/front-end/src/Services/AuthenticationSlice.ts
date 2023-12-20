@@ -24,7 +24,7 @@ export enum LoginType {
 export enum Role {
   Non = "unknown",
   Admin = "admin",
-  Association = "assosication_member",
+  Association = "assosiation_member",
   Candidate = "candidate",
   Company = "company_employee",
 }
